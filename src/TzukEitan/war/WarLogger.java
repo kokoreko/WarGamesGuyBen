@@ -199,4 +199,10 @@ public class WarLogger implements WarEventListener {
 		// Not needed
 	}
 
+	@Override
+	public String addIronDome(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

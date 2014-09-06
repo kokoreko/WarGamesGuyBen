@@ -5,14 +5,14 @@ import java.util.Vector;
 import TzukEitan.listeners.WarEventListener;
 import TzukEitan.listeners.WarEventUIListener;
 import TzukEitan.view.ConsoleView;
-import TzukEitan.view.AbstractSwingView;
+import TzukEitan.view.SwingView;
 import TzukEitan.view.WarXMLReader;
 
 
 public class WarControl implements WarEventListener, WarEventUIListener{
 	private War warModel;
 	private ConsoleView view;
-	private AbstractSwingView viewSwing;
+	private SwingView viewSwing;
 	public WarControl(War warModel, ConsoleView view){
 		this.warModel = warModel;
 		this.view = view;
