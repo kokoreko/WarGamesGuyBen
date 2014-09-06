@@ -5,13 +5,14 @@ import java.util.Vector;
 import TzukEitan.listeners.WarEventListener;
 import TzukEitan.listeners.WarEventUIListener;
 import TzukEitan.view.ConsoleView;
+import TzukEitan.view.SwingView;
 import TzukEitan.view.WarXMLReader;
 
 
 public class WarControl implements WarEventListener, WarEventUIListener{
 	private War warModel;
 	private ConsoleView view;
-	
+	private SwingView viewSwing;
 	public WarControl(War warModel, ConsoleView view){
 		this.warModel = warModel;
 		this.view = view;
@@ -59,6 +60,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	@Override
 	public void defenseMissInterceptionLauncher(String whoLaunchedMeId,	String type, String missileId, String enemyLauncherId) {
 		view.showMissInterceptionLauncher(whoLaunchedMeId,type, enemyLauncherId, missileId);
+		
 	}
 	
 	@Override
@@ -73,7 +75,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	
 	//Methods related to the model
 	@Override
-	public void finishWar() {
+	public void finishWarUI() {
 		WarXMLReader.stopAllThreads();
 		//warModel.finishWar();
 		
@@ -84,68 +86,68 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	}
 
 	@Override
-	public void showStatistics() {
+	public void showStatisticsUI() {
 		WarStatistics statistics = warModel.getStatistics();
 		view.showStatistics(statistics.statisticsToArray());	
 	}
 
 	@Override
-	public Vector<String> chooseMissileToIntercept() {
+	public Vector<String> chooseMissileToInterceptUI() {
 		Vector<String> ids = warModel.getAllDuringFlyMissilesIds();
 		return ids;
 	}
 
 	@Override
-	public void interceptGivenMissile(String ironDomeId, String missileId) {
+	public void interceptGivenMissileUI(String ironDomeId, String missileId) {
 		warModel.interceptGivenMissile(ironDomeId, missileId);
 	}
 
 	@Override
-	public void interceptGivenMissile(String missileId) {
+	public void interceptGivenMissileUI(String missileId) {
 		warModel.interceptGivenMissile(missileId);
 	}
 	
 	@Override
-	public void interceptGivenLauncher(String launcherId) {
+	public void interceptGivenLauncherUI(String launcherId) {
 		warModel.interceptGivenLauncher(launcherId);
 	}
 
 	@Override
-	public void interceptGivenLauncher(String destructorId, String launcherId) {
+	public void interceptGivenLauncherUI(String destructorId, String launcherId) {
 		warModel.interceptGivenLauncher(destructorId,launcherId);
 	}
 	
 	@Override
-	public Vector<String> chooseLauncherToIntercept() {
+	public Vector<String> chooseLauncherToInterceptUI() {
 		Vector<String> ids = warModel.getAllVisibleLaunchersIds();
 		return ids;
 	}
 
 	@Override
-	public Vector<String> showAllLaunchers() {
+	public Vector<String> showAllLaunchersUI() {
 		Vector<String> ids = warModel.getAllLaunchersIds();
 		return ids;
 	}
 
 	@Override
-	public void addEnemyMissile(String launcherId, String destination, int damage, int flyTime) {
+	public void addEnemyMissileUI(String launcherId, String destination, int damage, int flyTime) {
 		warModel.launchEnemyMissile(launcherId, destination, damage, flyTime);
 	}
 
 	@Override
-	public String addEnemyLauncher(String launcherId, boolean isHidden) {
+	public String addEnemyLauncherUI(String launcherId, boolean isHidden) {
 		String id = warModel.addEnemyLauncher(launcherId, isHidden);
 		return id;
 	}
 	
 	@Override
-	public String addEnemyLauncher() {
+	public String addEnemyLauncherUI() {
 		String id = warModel.addEnemyLauncher();
 		return id;
 	}
 
 	@Override
-	public String addIronDome() {
+	public String addIronDomeUI() {
 		String id = warModel.addIronDome();
 		return id;
 	}
@@ -157,13 +159,13 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	}
 
 	@Override
-	public String addDefenseLauncherDestructor(String type) {
+	public String addDefenseLauncherDestructorUI(String type) {
 		String id = warModel.addDefenseLauncherDestructor(type);
 		return id;
 	}
 
 	@Override
-	public String[] getAllWarDestinations() {
+	public String[] getAllWarDestinationsUI() {
 		String[] warTargets = warModel.getAllTargetCities();
 		return warTargets;
 	}

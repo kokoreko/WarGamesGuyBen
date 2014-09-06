@@ -48,7 +48,7 @@ public class WarXMLReader extends Thread {
 					.getAttribute("isHidden"));
 
 			// add to the war
-			warControl.addEnemyLauncher(idLauncher, isHidden);
+			warControl.addEnemyLauncherUI(idLauncher, isHidden);
 			IdGenerator.updateEnemyLauncherId(idLauncher);
 
 			NodeList missiles = tempLauncher.getElementsByTagName("missile");
@@ -115,7 +115,7 @@ public class WarXMLReader extends Thread {
 					IdGenerator.updateEnemyMissileId(tempMissileId);
 					
 					// add to the war
-					warControl.addEnemyMissile(tempLauncherId, tempDestination, tempDamage, tempFlyTime);
+					warControl.addEnemyMissileUI(tempLauncherId, tempDestination, tempDamage, tempFlyTime);
 
 				} catch (InterruptedException e) {
 					System.out.println("The program is close before expected");
@@ -169,7 +169,7 @@ public class WarXMLReader extends Thread {
 				type = attr.getNodeValue();
 				
 				// add to war
-				id = warControl.addDefenseLauncherDestructor(type);
+				id = warControl.addDefenseLauncherDestructorUI(type);
 
 				NodeList destructedLanuchers = destructor.getElementsByTagName("destructedLanucher");
 				readDefensDestructoreMissiles(destructedLanuchers, id);
@@ -219,9 +219,9 @@ public class WarXMLReader extends Thread {
 					
 					// update the war
 					if (tempLauncherId.charAt(0) == 'D') {
-						warControl.interceptGivenMissile(tempLauncherId, tempTargetId);
+						warControl.interceptGivenMissileUI(tempLauncherId, tempTargetId);
 					} else
-						warControl.interceptGivenLauncher(tempLauncherId, tempTargetId);
+						warControl.interceptGivenLauncherUI(tempLauncherId, tempTargetId);
 					
 				} catch (InterruptedException e) {
 					System.out.println("The program is close before expected");
