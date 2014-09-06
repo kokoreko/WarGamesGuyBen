@@ -297,7 +297,7 @@ public class War extends Thread {
 		}//for
 	}//method
 
-	//add enemy launcher without given parameters
+	/** add enemy launcher without given parameters */
 	public String addEnemyLauncher() {
 		String id = IdGenerator.enemyLauncherIdGenerator();
 		boolean isHidden = Math.random() < 0.5;

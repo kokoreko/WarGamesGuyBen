@@ -2,10 +2,18 @@ package TzukEitan.listeners;
 
 /** Event interface between the model and the control **/
 public interface WarEventListener {
-
+	
+	
 	/** Enemy Launch missile **/
 	public void enemyLaunchMissile(String myMunitionsId, String missileId,
 			String destination, int damage);
+
+	
+	
+	
+	/** Add defense Iron Dome from xml **/
+	public String addIronDome(String id);
+	
 
 	/** Enemy is now visible **/
 	public void enemyLauncherIsVisible(String id, boolean visible);
@@ -46,17 +54,20 @@ public interface WarEventListener {
 	void defenseMissInterceptionHiddenLauncher(String whoLaunchedMeId,
 			String type, String enemyLauncherId);
 
+	/** Will occur when the target that selected isn't exist **/
+	public void missileNotExist(String defenseLauncherId, String enemyId);
+
+
+	
 	/** Announce when the war endss **/
 	public void warHasBeenFinished();
-
+	
 	/** Announce when the war starts **/
 	public void warHasBeenStarted();
 
 	/** Will occur when ship/plane/iron dome is not found in war **/
 	public void noSuchObject(String type);
 
-	/** Will occur when the target that selected isn't exist **/
-	public void missileNotExist(String defenseLauncherId, String enemyId);
 
 	/** Will occur when the target that selected isn't exist **/
 	public void enemyLauncherNotExist(String defenseLauncherId, String launcherId);

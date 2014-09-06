@@ -117,22 +117,22 @@ public class ConsoleView extends Thread {
 
 		if (type.equals("plane") || type.equals("ship"))
 			for (WarEventUIListener l : allListeners)
-				l.addDefenseLauncherDestructor(type);
+				l.addDefenseLauncherDestructorUI(type);
 	}
 
 	private void fireAddDefenseIronDome() {
 		for (WarEventUIListener l : allListeners)
-			l.addIronDome();
+			l.addIronDomeUI();
 	}
 
 	private void fireAddEnemyLauncher() {
 		for (WarEventUIListener l : allListeners)
-			l.addEnemyLauncher();
+			l.addEnemyLauncherUI();
 	}
 
 	private void fireAddEnemyMissile() {
 		for (WarEventUIListener l : allListeners) {
-			Vector<String> launchersIds = l.showAllLaunchers();
+			Vector<String> launchersIds = l.showAllLaunchersUI();
 
 			if (launchersIds != null) {
 				System.out.println("Launchers to launch with:");
@@ -150,7 +150,7 @@ public class ConsoleView extends Thread {
 
 				if (launchersIds.contains(launcher)) {
 					System.out.println("Destination cities to destory:");
-					String[] destinations = l.getAllWarDestinations();
+					String[] destinations = l.getAllWarDestinationsUI();
 
 					for (int j = 0; j < destinations.length; j++)
 						System.out.println((j + 1) + ") " + destinations[j]);
@@ -162,7 +162,7 @@ public class ConsoleView extends Thread {
 					int damage = (int) ((Math.random() * Utils.SECOND) + Utils.SECOND * 2);
 					int flyTime = (int) ((Math.random() * Utils.FLY_TIME) + Utils.FLY_TIME);
 
-					l.addEnemyMissile(launcher, destination, damage, flyTime);
+					l.addEnemyMissileUI(launcher, destination, damage, flyTime);
 				}// if
 				else
 					System.out
@@ -176,7 +176,7 @@ public class ConsoleView extends Thread {
 
 	private void fireInterceptEnemyLauncher() {
 		for (WarEventUIListener l : allListeners) {
-			Vector<String> launcersId = l.chooseLauncherToIntercept();
+			Vector<String> launcersId = l.chooseLauncherToInterceptUI();
 
 			if (launcersId != null) {
 				System.out.println("Launcher to intercept:");
@@ -192,7 +192,7 @@ public class ConsoleView extends Thread {
 				String launcher = input.nextLine();
 
 				if (launcersId.contains(launcher))
-					l.interceptGivenLauncher(launcher);
+					l.interceptGivenLauncherUI(launcher);
 				else
 					System.out
 							.println("The launcher you have selected doesn't exist!");
@@ -204,7 +204,7 @@ public class ConsoleView extends Thread {
 
 	private void fireInterceptMissile() {
 		for (WarEventUIListener l : allListeners) {
-			Vector<String> missilesId = l.chooseMissileToIntercept();
+			Vector<String> missilesId = l.chooseMissileToInterceptUI();
 
 			if (missilesId != null) {
 				System.out.println("Missiles to intercept:");
@@ -220,7 +220,7 @@ public class ConsoleView extends Thread {
 				String missile = input.nextLine();
 
 				if (missilesId.contains(missile))
-					l.interceptGivenMissile(missile);
+					l.interceptGivenMissileUI(missile);
 				else
 					System.out
 							.println("The missile you selected doesn't exist!");
@@ -232,12 +232,12 @@ public class ConsoleView extends Thread {
 
 	private void fireShowStatistics() {
 		for (WarEventUIListener l : allListeners)
-			l.showStatistics();
+			l.showStatisticsUI();
 	}
 
 	private void fireFinishWar() {
 		for (WarEventUIListener l : allListeners) {
-			l.finishWar();
+			l.finishWarUI();
 		}
 
 		isRunning = false;
@@ -343,7 +343,7 @@ public class ConsoleView extends Thread {
 
 	public void showWarHasBeenFinished() {
 		for (WarEventUIListener l : allListeners) {
-			l.showStatistics();
+			l.showStatisticsUI();
 		}
 
 		System.out.println("[" + Utils.getCurrentTime()
