@@ -13,40 +13,51 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 
 public class frmLauncherDestractor extends JFrame {
+	
+	private JPanel upPanel,midPanel,downPanel;
+	private JLabel topLabel;
+	private JRadioButton rbPlane,rbShip;
+	private JButton btnAddLauncherDestractor;
+	private ButtonGroup radioBtn;
+	
 	public frmLauncherDestractor() {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.NORTH);
+		upPanel = new JPanel();
+		getContentPane().add(upPanel, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("Choose the type of launcher destractor:");
-		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 15));
-		panel.add(lblNewLabel);
+		topLabel = new JLabel("Choose the type of launcher destractor:");
+		topLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+		upPanel.add(topLabel);
 		
-		JPanel panel_1 = new JPanel();
-		getContentPane().add(panel_1, BorderLayout.CENTER);
+		midPanel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) midPanel.getLayout();
+		flowLayout.setVgap(10);
+		flowLayout.setHgap(100);
+		getContentPane().add(midPanel, BorderLayout.CENTER);
 		
-		JPanel panel_2 = new JPanel();
-		getContentPane().add(panel_2, BorderLayout.SOUTH);
+		downPanel = new JPanel();
+		getContentPane().add(downPanel, BorderLayout.SOUTH);
 		
-		ButtonGroup radioBtn = new ButtonGroup();
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 15));
+		radioBtn = new ButtonGroup();
+		downPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 15));
 		
-		JRadioButton rbPlane = new JRadioButton("Plane");
+		rbPlane = new JRadioButton("Plane");
 		rbPlane.setEnabled(true);
 		rbPlane.setFont(new Font("Arial", Font.PLAIN, 16));
 		radioBtn.add(rbPlane);
-		panel_1.add(rbPlane);
+		midPanel.add(rbPlane);
 		
-		JRadioButton rbShip = new JRadioButton("Ship");
+		rbShip = new JRadioButton("Ship");
 		rbShip.setFont(new Font("Arial", Font.PLAIN, 16));
 		radioBtn.add(rbShip);
-		panel_1.add(rbShip);
+		midPanel.add(rbShip);
 		
-		JButton btnAddLauncherDestractor = new JButton("Add");
+		btnAddLauncherDestractor = new JButton("Add");
 		btnAddLauncherDestractor.setFont(new Font("Arial", Font.PLAIN, 16));
-		panel_2.add(btnAddLauncherDestractor);
+		downPanel.add(btnAddLauncherDestractor);
 		
+		setTitle("Add Launcher Destractor");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 	}
