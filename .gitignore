@@ -1,1 +1,13 @@
 /bin/
+/log/IronDomeD201Logger.xml
+/log/IronDomeD202Logger.xml
+/log/IronDomeD203Logger.xml
+/log/LauncherL101Logger.xml
+/log/LauncherL102Logger.xml
+/log/LauncherL103Logger.xml
+/log/LauncherL104Logger.xml
+/log/PlaneP301Logger.xml
+/log/PlaneP303Logger.xml
+/log/PlaneP304Logger.xml
+/log/ShipS302Logger.xml
+/log/WarLogger.xml

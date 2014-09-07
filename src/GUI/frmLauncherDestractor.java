@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 
 public class frmLauncherDestractor extends JFrame {
-	
+	private final Font font = new Font("Arial", Font.PLAIN, 16);
 	private JPanel upPanel,midPanel,downPanel;
 	private JLabel topLabel;
 	private JRadioButton rbPlane,rbShip;
@@ -27,7 +27,7 @@ public class frmLauncherDestractor extends JFrame {
 		getContentPane().add(upPanel, BorderLayout.NORTH);
 		
 		topLabel = new JLabel("Choose the type of launcher destractor:");
-		topLabel.setFont(new Font("Arial", Font.PLAIN, 15));
+		topLabel.setFont(font);
 		upPanel.add(topLabel);
 		
 		midPanel = new JPanel();
@@ -44,17 +44,17 @@ public class frmLauncherDestractor extends JFrame {
 		
 		rbPlane = new JRadioButton("Plane");
 		rbPlane.setEnabled(true);
-		rbPlane.setFont(new Font("Arial", Font.PLAIN, 16));
+		rbPlane.setFont(font);
 		radioBtn.add(rbPlane);
 		midPanel.add(rbPlane);
 		
 		rbShip = new JRadioButton("Ship");
-		rbShip.setFont(new Font("Arial", Font.PLAIN, 16));
+		rbShip.setFont(font);
 		radioBtn.add(rbShip);
 		midPanel.add(rbShip);
 		
 		btnAddLauncherDestractor = new JButton("Add");
-		btnAddLauncherDestractor.setFont(new Font("Arial", Font.PLAIN, 16));
+		btnAddLauncherDestractor.setFont(font);
 		downPanel.add(btnAddLauncherDestractor);
 		
 		setTitle("Add Launcher Destractor");
