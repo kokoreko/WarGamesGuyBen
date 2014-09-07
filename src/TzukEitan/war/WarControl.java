@@ -12,11 +12,12 @@ import TzukEitan.view.WarXMLReader;
 public class WarControl implements WarEventListener, WarEventUIListener{
 	private War warModel;
 	private ConsoleView view;
+	private SwingView viewGUI;
 	private SwingView viewSwing;
-	public WarControl(War warModel, ConsoleView view){
+	public WarControl(War warModel, ConsoleView view, SwingView viewGUI){
 		this.warModel = warModel;
 		this.view = view;
-		
+		this.viewGUI = viewGUI;
 		warModel.registerListenerts(this);
 		view.registerListeners(this);
 	}

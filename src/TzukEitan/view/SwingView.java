@@ -2,35 +2,30 @@ package TzukEitan.view;
 
 import java.util.List;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import TzukEitan.listeners.WarEventUIListener;
 
-import java.awt.GridBagLayout;
+
 
 import javax.swing.JPanel;
 
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JSplitPane;
 
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
 
 import javax.swing.JList;
 
@@ -62,8 +57,13 @@ public class SwingView extends JFrame{
 		JLabel lblLogTitle = new JLabel("War log updates");
 		pnLog.add(lblLogTitle, BorderLayout.NORTH);
 		
+		JLabel lblLauncher = new JLabel("");
+		lblLauncher.setIcon(new ImageIcon("D:\\Kosta\\git\\WarGamesGuyBen\\src\\GUI\\launcher.png"));
+		lblLauncher.setLocation(500, 500);
+		pnMap.add(lblLauncher);
 		
-		mapLabel = new JLabel(new ImageIcon("D:\\Kosta\\git\\WarGamesGuyBen\\src\\GUI\\Israel_relief_location_map.jpg"));           
+		
+		mapLabel = new JLabel(new ImageIcon("D:\\Kosta\\git\\WarGamesGuyBen\\src\\GUI\\Israel_relief_location_mapSmall.jpg"));           
 		pnMap.add(mapLabel);
 		spMap = new JScrollPane(pnMap);
 		upPanel.add(spMap,BorderLayout.CENTER);
@@ -73,6 +73,7 @@ public class SwingView extends JFrame{
 		getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
 		buttonsPanel.setLayout(new GridLayout(2, 4, 2, 2));
 		
+		setVisible(true);
 		
 		
 	}

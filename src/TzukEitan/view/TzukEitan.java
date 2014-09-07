@@ -22,9 +22,10 @@ public class TzukEitan {
 		WarXMLReader warXML;
 
 		ConsoleView view = new ConsoleView();
+		SwingView viewGUI = new SwingView();
 		War warModel = new War();
 
-		WarControl warControl = new WarControl(warModel, view);
+		WarControl warControl = new WarControl(warModel, view,viewGUI);
 
 		try {
 			warXML = new WarXMLReader("warStart.xml", warControl);
@@ -44,6 +45,7 @@ public class TzukEitan {
 
 		warModel.start();
 		view.start();
+		
 	}
 
 }
