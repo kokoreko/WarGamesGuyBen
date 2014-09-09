@@ -64,6 +64,7 @@ public class frmDestroyLauncher extends JFrame {
 		
 		setTitle("Destroy Launcher");
 		setResizable(false);
+		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
