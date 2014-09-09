@@ -61,7 +61,7 @@ public class frmDestroyLauncher extends JFrame {
 		btnDestroyLauncher = new JButton("Destroy!");
 		btnDestroyLauncher.setFont(font);
 		downPanel.add(btnDestroyLauncher);
-		
+		setSize(540, 294);
 		setTitle("Destroy Launcher");
 		setResizable(false);
 		setVisible(true);

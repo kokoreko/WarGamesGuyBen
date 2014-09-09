@@ -60,10 +60,9 @@ public class SwingView extends JFrame{
 		buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(Color.LIGHT_GRAY);
 		createButtons();
-		addButtonsListener();
 		getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
 		buttonsPanel.setLayout(new GridLayout(2, 4, 2, 2));
-		
+		addButtonsListener();
 		setVisible(true);
 		
 		
@@ -74,6 +73,7 @@ public class SwingView extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frmDestroyLauncher destroy = new frmDestroyLauncher();
+				
 				destroy.setAlwaysOnTop(true);
 			}
 		});
