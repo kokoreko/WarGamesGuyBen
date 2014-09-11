@@ -7,6 +7,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import javax.swing.border.CompoundBorder;
 
 public class frmShowStats extends JFrame {
 	private JPanel mainPanel;
@@ -14,21 +17,26 @@ public class frmShowStats extends JFrame {
 	private JTable tblStats;
 	private JScrollPane jsmStats;
 	public frmShowStats() {
+		setVisible(true);
 		
 		setTitle("Statistics");
-		setResizable(false);
 		
 		mainPanel = new JPanel();
+		mainPanel.setSize(800, 160);
 		tableModel = new DefaultTableModel();
 		tableModel.setColumnIdentifiers(new String[] { "Num of launch missiles"
 				,"Num of intercept missiles"
 				,"Num of hit target missiles"
 				,"Num of launchers destroyed"
 				,"Total damage"});
+		
 		tblStats = new JTable(tableModel);
 		jsmStats = new JScrollPane(tblStats);
-		jsmStats.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		jsmStats.setEnabled(false);
+		jsmStats.setPreferredSize(mainPanel.getSize());
 		mainPanel.add(jsmStats);
+		setResizable(false);
+		setSize(800,160);
 		getContentPane().add(mainPanel, BorderLayout.CENTER);
 	}
 

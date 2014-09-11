@@ -16,9 +16,17 @@ import java.awt.BorderLayout;
 
 
 
+
+
+
+
 import javax.swing.JButton;
 
+import GUI.frmAddLauncherDestractor;
 import GUI.frmDestroyLauncher;
+import GUI.frmInterceptMissile;
+import GUI.frmLaunchMissile;
+import GUI.frmShowStats;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -64,19 +72,64 @@ public class SwingView extends JFrame{
 		buttonsPanel.setLayout(new GridLayout(2, 4, 2, 2));
 		addButtonsListener();
 		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		
 	}
 	 
 	private void addButtonsListener() {
+		btnEndWar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Close the war (No frame needed)
+			}
+		});
+		btnAddMissileIntercepter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Create a new IronDoom (No Frame needed)
+			}
+		});
+		btnAddLauncher.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Add a new Launcher (No Frame needed)
+			}
+		});
+		
 		btnAddLauncherIntercepter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				frmDestroyLauncher destroy = new frmDestroyLauncher();
-				
-				destroy.setAlwaysOnTop(true);
+				frmAddLauncherDestractor addIntercepter = new frmAddLauncherDestractor();
 			}
 		});
+		btnInterceptLauncher.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frmDestroyLauncher intercpterDestroy = new frmDestroyLauncher();
+			}
+		});
+		btnShowStatistics.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frmShowStats stats = new frmShowStats();
+			}
+		});
+		btnLaunchMissile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frmLaunchMissile launchMissile = new frmLaunchMissile();
+			}
+		});
+		
+		btnInterceptMissile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frmInterceptMissile interceptMissile = new frmInterceptMissile();
+			}
+		});
+		
+		
 	}
 
 	private void createButtons(){

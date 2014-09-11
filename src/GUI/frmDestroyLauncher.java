@@ -3,7 +3,10 @@ package GUI;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 
@@ -13,59 +16,60 @@ import javax.swing.JButton;
 
 import java.awt.GridLayout;
 
+import javax.swing.JComboBox;
+
 public class frmDestroyLauncher extends JFrame {
 	private final Font font = new Font("Arial", Font.PLAIN, 16);
-	private JLabel title,leftLabel,rightLabel;
-	private JButton btnDestroyLauncher;
-	private JPanel upPanel,downPanel,rightPanel,leftPanel,destPanel,launcherPanel,midPanel;
-	private JScrollPane scpDestnation,scpLauncher;
+	
+	private JPanel midPanel,upPanel,downPanel;
+	private JButton btnLaunchMissile;
+	private JPanel rightPanel, leftPanel;
+	private JComboBox<Object> cmbChooseLauncher,cmbChoosedestroyer;
+	private JLabel lblChooseLauncher,lblChooseCity;
+	
 	
 	public frmDestroyLauncher() {
+		setSize(new Dimension(420, 256));
+		setTitle("Destory Launcher");
 		
 		upPanel = new JPanel();
 		getContentPane().add(upPanel, BorderLayout.NORTH);
 		
-		title = new JLabel("Destroy Lancher");
-		title.setFont(font);
-		upPanel.add(title);
+		midPanel = new JPanel();
+		getContentPane().add(midPanel, BorderLayout.CENTER);
+		midPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 20));
 		
 		leftPanel = new JPanel();
-		destPanel = new JPanel();
-		scpDestnation = new JScrollPane(destPanel);
+		midPanel.add(leftPanel);
 		leftPanel.setLayout(new BorderLayout(0, 0));
-		leftLabel = new JLabel("Choose destnation: ");
-		leftLabel.setFont(font);
-		leftPanel.add(leftLabel, BorderLayout.NORTH);
-		leftPanel.add(scpDestnation,BorderLayout.CENTER);
+		
+		cmbChooseLauncher = new JComboBox<Object>();
+		leftPanel.add(cmbChooseLauncher);
+		
+		lblChooseLauncher = new JLabel("Choose a Destroyer");
+		lblChooseLauncher.setFont(font);
+		leftPanel.add(lblChooseLauncher, BorderLayout.NORTH);
 		
 		rightPanel = new JPanel();
-		rightPanel.setLayout(new BorderLayout(0, 0));
-		
-		launcherPanel = new JPanel();
-		scpLauncher = new JScrollPane(launcherPanel);
-		rightPanel.setLayout(new BorderLayout(0, 0));
-		rightLabel = new JLabel("Choose launcher: ");
-		rightLabel.setFont(font);
-		rightPanel.add(rightLabel, BorderLayout.NORTH);
-		rightPanel.add(scpLauncher,BorderLayout.CENTER);
-		
-		midPanel = new JPanel();
-		midPanel.setLayout(new GridLayout(0, 2, 0, 0));
-		midPanel.add(leftPanel);
 		midPanel.add(rightPanel);
-		getContentPane().add(midPanel,BorderLayout.CENTER);
+		rightPanel.setLayout(new BorderLayout(0, 0));
+		
+		cmbChoosedestroyer = new JComboBox<Object>();
+		rightPanel.add(cmbChoosedestroyer);
+		
+		lblChooseCity= new JLabel("Choose Launcher to destroy");
+		lblChooseCity.setFont(font);
+		rightPanel.add(lblChooseCity, BorderLayout.NORTH);
 		
 		downPanel = new JPanel();
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
 		
-		btnDestroyLauncher = new JButton("Destroy!");
-		btnDestroyLauncher.setFont(font);
-		downPanel.add(btnDestroyLauncher);
-		setSize(540, 294);
-		setTitle("Destroy Launcher");
-		setResizable(false);
+		btnLaunchMissile = new JButton("Destroy!");
+		btnLaunchMissile.setFont(font);
+		downPanel.add(btnLaunchMissile);
+		
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setAlwaysOnTop(true);
+		setResizable(false);
 	}
-	
 }

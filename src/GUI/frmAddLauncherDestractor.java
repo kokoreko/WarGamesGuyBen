@@ -12,7 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 
-public class frmLauncherDestractor extends JFrame {
+public class frmAddLauncherDestractor extends JFrame {
 	private final Font font = new Font("Arial", Font.PLAIN, 16);
 	private JPanel upPanel,midPanel,downPanel;
 	private JLabel topLabel;
@@ -20,7 +20,7 @@ public class frmLauncherDestractor extends JFrame {
 	private JButton btnAddLauncherDestractor;
 	private ButtonGroup radioBtn;
 	
-	public frmLauncherDestractor() {
+	public frmAddLauncherDestractor() {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		upPanel = new JPanel();
@@ -57,8 +57,9 @@ public class frmLauncherDestractor extends JFrame {
 		btnAddLauncherDestractor.setFont(font);
 		downPanel.add(btnAddLauncherDestractor);
 		
+		setSize(335,225);
+		setVisible(true);
 		setTitle("Add Launcher Destractor");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 	}
 
