@@ -30,7 +30,6 @@ public class TzukEitan {
 		try {
 			warXML = new WarXMLReader("warStart.xml", warControl);
 			warXML.start();
-
 			warXML.join();
 
 		} catch (ParserConfigurationException e) {
@@ -45,7 +44,6 @@ public class TzukEitan {
 
 		warModel.start();
 		view.start();
-		viewGUI.start();
 		
 	}
 
