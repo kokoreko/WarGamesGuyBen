@@ -2,6 +2,7 @@ package TzukEitan.war;
 
 import java.util.Vector;
 
+import GUI.frmMain;
 import TzukEitan.listeners.WarEventListener;
 import TzukEitan.listeners.WarEventUIListener;
 import TzukEitan.view.ConsoleView;

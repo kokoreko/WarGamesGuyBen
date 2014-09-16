@@ -45,6 +45,7 @@ public class TzukEitan {
 
 		warModel.start();
 		view.start();
+		viewGUI.start();
 		
 	}
 
