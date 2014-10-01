@@ -4,16 +4,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import java.awt.GridLayout;
-
 import javax.swing.JLabel;
-
 import java.awt.BorderLayout;
-
 import javax.swing.JButton;
-
 import GUI.frmAddLauncherDestractor;
 import GUI.frmDestroyLauncher;
 import GUI.frmInterceptMissile;
