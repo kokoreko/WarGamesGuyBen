@@ -39,5 +39,9 @@ public class frmShowStats extends JFrame {
 		setSize(800,160);
 		getContentPane().add(mainPanel, BorderLayout.CENTER);
 	}
+	public void addStats(long[] statisticsToArray) {
+		tableModel.addRow(new Object[] {statisticsToArray[0], statisticsToArray[1],statisticsToArray[2],statisticsToArray[3],statisticsToArray[4]});
+		
+	}
 
 }

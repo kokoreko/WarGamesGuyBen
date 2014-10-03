@@ -20,12 +20,14 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 		this.viewGUI = viewGUI;
 		warModel.registerListenerts(this);
 		view.registerListeners(this);
+		viewGUI.registerListeners(this);
 	}
 	
-	//Method that related to the view
+	//Method that related to the view & viewGUI
 	@Override
 	public void defenseLaunchMissile(String myMunitionsId, String missileId, String enemyMissileId) {
 		view.showDefenseLaunchMissile(myMunitionsId,missileId,enemyMissileId);
+		viewGUI.showDefenseLaunchMissile(myMunitionsId,missileId,enemyMissileId);
 	}
 
 	@Override
@@ -74,6 +76,8 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 		view.showHitInterceptionLauncher(whoLaunchedMeId, type, enemyLauncherId, missileId);
 	}
 	
+	
+	
 	//Methods related to the model
 	@Override
 	public void finishWarUI() {
@@ -90,6 +94,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	public void showStatisticsUI() {
 		WarStatistics statistics = warModel.getStatistics();
 		view.showStatistics(statistics.statisticsToArray());	
+		viewGUI.showStatistics(statistics.statisticsToArray());
 	}
 
 	@Override

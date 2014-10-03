@@ -4,10 +4,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
+
 import java.awt.GridLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
+
 import GUI.frmAddLauncherDestractor;
 import GUI.frmDestroyLauncher;
 import GUI.frmInterceptMissile;
@@ -106,8 +111,8 @@ public class SwingView extends JFrame{
 		
 		btnAddLauncherIntercepter.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				frmAddLauncherDestractor addIntercepter = new frmAddLauncherDestractor();
+			public void actionPerformed(ActionEvent e) {
+				addLauncherIntercepter();
 			}
 		});
 		btnInterceptLauncher.addActionListener(new ActionListener() {
@@ -119,7 +124,7 @@ public class SwingView extends JFrame{
 		btnShowStatistics.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frmShowStats stats = new frmShowStats();
+				showStats();
 			}
 		});
 		btnLaunchMissile.addActionListener(new ActionListener() {
@@ -138,12 +143,36 @@ public class SwingView extends JFrame{
 		
 		
 	}
+	protected void addLauncherIntercepter() {
+		Object lock = new Object();
+		frmAddLauncherDestractor LDF = new frmAddLauncherDestractor(lock);
+		synchronized (lock) {
+			try {
+				lock.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		String type = LDF.getChoise();
+		System.err.println(type);
+		if (type.equals("plane") || type.equals("ship")){
+			for (WarEventUIListener l : allListeners)
+				l.addDefenseLauncherDestructorUI(type);
+		}
+	}
+
+	protected void showStats() {
+		for (WarEventUIListener l : allListeners)
+			l.showStatisticsUI();
+	}
+
 	public void registerListeners(WarEventUIListener listener) {
 		allListeners.add(listener);
 	}
 	
 	private void endWar() {
-		frmShowStats stats = new frmShowStats();
+		for (WarEventUIListener l : allListeners)
+			l.showStatisticsUI();
 		
 	}
 
@@ -172,6 +201,18 @@ public class SwingView extends JFrame{
 		btnEndWar = new JButton("End the war");
 		btnEndWar.setToolTipText("End the war and show statistics");
 		buttonsPanel.add(btnEndWar);
+	}
+
+	public void showDefenseLaunchMissile(String myMunitionsId,
+			String missileId, String enemyMissileId) {
+		
+		
+	}
+
+	public void showStatistics(long[] statisticsToArray) {
+		frmShowStats statsFrm = new frmShowStats();
+		statsFrm.addStats(statisticsToArray);
+		
 	}
 	
 	
