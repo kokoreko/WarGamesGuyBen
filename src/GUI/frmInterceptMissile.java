@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -9,21 +10,40 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
+import TzukEitan.listeners.WarEventUIListener;
+
 public class frmInterceptMissile extends JFrame {
 	private final Font font = new Font("Arial", Font.PLAIN, 16);
-	
-	private JPanel mainPanel,downPanel;
+	private boolean state = true;
+	private JPanel mainPanel,downPanel,panel,panel1;;
 	private JButton btnInterceptMissile;
-	private JPanel panel;
 	private JLabel lblChooseAMissile;
-	private JPanel panel_1;
 	private JComboBox cmbChooseMissile;
+	private Vector<String> allMissilesId =null;
 	
-	public frmInterceptMissile() {
+	public frmInterceptMissile(List<WarEventUIListener> allListeners) {
+		allMissilesId = new Vector<String>();
+		for (WarEventUIListener l : allListeners) {
+			Vector<String> missilesId = l.chooseMissileToInterceptUI();
+			if(missilesId != null){
+				for(String id : missilesId){
+					allMissilesId.add(id);
+				}
+				state = true;
+			}else {
+				state = false;
+			}
+		}
+
+		
 		setTitle("Intercept a Missile");
 		
 		mainPanel = new JPanel();
@@ -37,11 +57,11 @@ public class frmInterceptMissile extends JFrame {
 		lblChooseAMissile.setFont(font);
 		panel.add(lblChooseAMissile);
 		
-		panel_1 = new JPanel();
-		mainPanel.add(panel_1, BorderLayout.CENTER);
+		panel1 = new JPanel();
+		mainPanel.add(panel1, BorderLayout.CENTER);
 		
-		cmbChooseMissile = new JComboBox();
-		panel_1.add(cmbChooseMissile);
+		cmbChooseMissile = new JComboBox(allMissilesId);
+		panel1.add(cmbChooseMissile);
 		
 		downPanel = new JPanel();
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
@@ -49,10 +69,24 @@ public class frmInterceptMissile extends JFrame {
 		btnInterceptMissile = new JButton("Intercept!");
 		btnInterceptMissile.setFont(font);
 		downPanel.add(btnInterceptMissile);
-		
-		setVisible(true);
+		btnInterceptMissile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String missile = (String) cmbChooseMissile.getSelectedItem();
+				for (WarEventUIListener l : allListeners) {
+					l.interceptGivenMissileUI(missile);
+				}
+				setEnabled(false);
+				setVisible(false);
+			}
+		});
+		if(state == true) setVisible(true);
 		setAlwaysOnTop(true);
 		setSize(new Dimension(360, 160));
+	}
+	
+	public boolean getStat(){
+		return state;
 	}
 
 }

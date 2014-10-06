@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -8,10 +9,22 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JSplitPane;
+
 import java.awt.FlowLayout;
+
 import javax.swing.JComboBox;
+
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
 import javax.swing.JLabel;
+
+import TzukEitan.listeners.WarEventUIListener;
+import TzukEitan.utils.Utils;
 
 public class frmLaunchMissile extends JFrame {
 	private final Font font = new Font("Arial", Font.PLAIN, 16);
@@ -21,9 +34,27 @@ public class frmLaunchMissile extends JFrame {
 	private JPanel rightPanel, leftPanel;
 	private JComboBox cmbChooseLauncher,cmbChooseCity;
 	private JLabel lblChooseLauncher,lblChooseCity;
+	private Vector<String> allLauncherIds,allDestinations;
+	private boolean state = true;
 	
-	
-	public frmLaunchMissile() {
+	public frmLaunchMissile(List<WarEventUIListener> allListeners) {
+		allLauncherIds = new Vector<String>();
+		allDestinations = new Vector<String>();
+		
+		for (WarEventUIListener l : allListeners) {
+			String[] destinations = l.getAllWarDestinationsUI();
+			for(String dest : destinations){
+				allDestinations.add(dest);
+			}
+			Vector<String> launchersIds = l.showAllLaunchersUI();
+			if(launchersIds != null){
+				for(String id : launchersIds){ 
+					allLauncherIds.add(id);
+					state = true;
+					}
+				}else{ state = false; }
+			
+		}
 		setSize(new Dimension(420, 256));
 		setTitle("Launce a missile");
 		
@@ -38,7 +69,7 @@ public class frmLaunchMissile extends JFrame {
 		midPanel.add(leftPanel);
 		leftPanel.setLayout(new BorderLayout(0, 0));
 		
-		cmbChooseLauncher = new JComboBox();
+		cmbChooseLauncher = new JComboBox(allLauncherIds);
 		leftPanel.add(cmbChooseLauncher);
 		
 		lblChooseLauncher = new JLabel("Choose a Launcher");
@@ -49,7 +80,7 @@ public class frmLaunchMissile extends JFrame {
 		midPanel.add(rightPanel);
 		rightPanel.setLayout(new BorderLayout(0, 0));
 		
-		cmbChooseCity = new JComboBox();
+		cmbChooseCity = new JComboBox(allDestinations);
 		rightPanel.add(cmbChooseCity);
 		
 		lblChooseCity= new JLabel("Choose a city to strike");
@@ -62,10 +93,26 @@ public class frmLaunchMissile extends JFrame {
 		btnLaunchMissile = new JButton("Launch!");
 		btnLaunchMissile.setFont(font);
 		downPanel.add(btnLaunchMissile);
+		btnLaunchMissile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String launcher = (String)cmbChooseLauncher.getSelectedItem();
+				String city = (String)cmbChooseCity.getSelectedItem();
+				int damage = (int) ((Math.random() * Utils.SECOND) + Utils.SECOND * 2);
+				int flyTime = (int) ((Math.random() * Utils.FLY_TIME) + Utils.FLY_TIME);
+				for(WarEventUIListener l : allListeners ){
+					l.addEnemyMissileUI(launcher, city, damage, flyTime);
+				}
+				setEnabled(false);
+				setVisible(false);
+			}
+		});
 		
-		setVisible(true);
+		if(state == true) setVisible(true);
 		setAlwaysOnTop(true);
 		setResizable(false);
 	}
-	
+	public boolean getStat(){
+		return state;
+	}
 }

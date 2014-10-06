@@ -2,7 +2,6 @@ package GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -11,51 +10,54 @@ import java.awt.FlowLayout;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import java.awt.GridLayout;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JComboBox;
 
+import TzukEitan.listeners.WarEventUIListener;
+
 public class frmDestroyLauncher extends JFrame {
 	private final Font font = new Font("Arial", Font.PLAIN, 16);
-	
-	private JPanel midPanel,upPanel,downPanel;
+
+	private JPanel midPanel,downPanel;
 	private JButton btnLaunchMissile;
-	private JPanel rightPanel, leftPanel;
-	private JComboBox<Object> cmbChooseLauncher,cmbChoosedestroyer;
-	private JLabel lblChooseLauncher,lblChooseCity;
+	private JPanel rightPanel;
+	private JComboBox<String> cmbChooseLauncher;
+	private JLabel lblChooseCity;
+	private Vector<String> allLaunchersId;
+	private boolean state = true;
 	
-	
-	public frmDestroyLauncher() {
-		setSize(new Dimension(420, 256));
+	public frmDestroyLauncher(List<WarEventUIListener> allListeners) {
+		allLaunchersId = new Vector<String>();
+		for (WarEventUIListener l : allListeners) {
+			Vector<String> launcersId = l.chooseLauncherToInterceptUI();
+			if(launcersId != null){
+				for(String id : launcersId){
+					allLaunchersId.add(id);
+					state = true;
+				}
+			}else{ state = false; }
+		}
+			
+		setSize(new Dimension(356, 161));
 		setTitle("Destory Launcher");
-		
-		upPanel = new JPanel();
-		getContentPane().add(upPanel, BorderLayout.NORTH);
 		
 		midPanel = new JPanel();
 		getContentPane().add(midPanel, BorderLayout.CENTER);
 		midPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 20));
 		
-		leftPanel = new JPanel();
-		midPanel.add(leftPanel);
-		leftPanel.setLayout(new BorderLayout(0, 0));
-		
-		cmbChooseLauncher = new JComboBox<Object>();
-		leftPanel.add(cmbChooseLauncher);
-		
-		lblChooseLauncher = new JLabel("Choose a Destroyer");
-		lblChooseLauncher.setFont(font);
-		leftPanel.add(lblChooseLauncher, BorderLayout.NORTH);
-		
 		rightPanel = new JPanel();
 		midPanel.add(rightPanel);
 		rightPanel.setLayout(new BorderLayout(0, 0));
 		
-		cmbChoosedestroyer = new JComboBox<Object>();
-		rightPanel.add(cmbChoosedestroyer);
+		cmbChooseLauncher = new JComboBox<String>(allLaunchersId);
+		rightPanel.add(cmbChooseLauncher);
 		
 		lblChooseCity= new JLabel("Choose Launcher to destroy");
 		lblChooseCity.setFont(font);
@@ -67,9 +69,24 @@ public class frmDestroyLauncher extends JFrame {
 		btnLaunchMissile = new JButton("Destroy!");
 		btnLaunchMissile.setFont(font);
 		downPanel.add(btnLaunchMissile);
+		btnLaunchMissile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String launcher = (String) cmbChooseLauncher.getSelectedItem();
+				for (WarEventUIListener l : allListeners) {
+						l.interceptGivenLauncherUI(launcher);
+				}
+				setEnabled(false);
+				setVisible(false);
+			}
+		});
 		
-		setVisible(true);
+		if(state == true) setVisible(true);
 		setAlwaysOnTop(true);
 		setResizable(false);
+	}
+	
+	public boolean getStat(){
+		return state;
 	}
 }

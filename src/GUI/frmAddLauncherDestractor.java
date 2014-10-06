@@ -16,6 +16,7 @@ import TzukEitan.listeners.WarEventUIListener;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class frmAddLauncherDestractor extends JFrame {
 	private final Font font = new Font("Arial", Font.PLAIN, 16);
@@ -24,10 +25,10 @@ public class frmAddLauncherDestractor extends JFrame {
 	private JRadioButton rbPlane,rbShip;
 	private JButton btnAddLauncherDestractor;
 	private ButtonGroup radioBtn;
+
 	private String type=null;
-	private Object lock;
-	public frmAddLauncherDestractor(Object lock) {
-		this.lock = lock;
+
+	public frmAddLauncherDestractor(List<WarEventUIListener> allListeners) {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		upPanel = new JPanel();
@@ -75,10 +76,14 @@ public class frmAddLauncherDestractor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				type = radioBtn.getSelection().getActionCommand();
-
+		
+				if (type.equals("plane") || type.equals("ship")){
+					for (WarEventUIListener l : allListeners)
+						l.addDefenseLauncherDestructorUI(type);
+				}
 				setEnabled(false);
 				setVisible(false);
-				this.notify();
+				
 			}
 		});
 	}

@@ -2,6 +2,7 @@ package TzukEitan.view;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 
@@ -38,7 +39,6 @@ public class SwingView extends JFrame{
 					,btnAddLauncher,btnInterceptLauncher,btnInterceptMissile,btnShowStatistics,btnEndWar;
 	private List<WarEventUIListener> allListeners;
 	private List<JFrame> allFrames;
-	
 	/**
 	 * Constructor of to the war Main Frame
 	 */
@@ -88,7 +88,8 @@ public class SwingView extends JFrame{
 		getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
 		buttonsPanel.setLayout(new GridLayout(2, 4, 2, 2));
 	}
-
+	
+	//Create Buttons Action Listeners
 	private void addButtonsListener() {
 		btnEndWar.addActionListener(new ActionListener() {
 			@Override
@@ -99,83 +100,101 @@ public class SwingView extends JFrame{
 		btnAddMissileIntercepter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Create a new IronDoom (No Frame needed)
+				fireAddIronDome();
 			}
 		});
 		btnAddLauncher.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Add a new Launcher (No Frame needed)
+			fireAddLauncher();
 			}
 		});
 		
 		btnAddLauncherIntercepter.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				addLauncherIntercepter();
+				fireAddLauncherIntercepter();
 			}
 		});
 		btnInterceptLauncher.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frmDestroyLauncher intercpterDestroy = new frmDestroyLauncher();
+				fireDestroyLauncher();
 			}
 		});
 		btnShowStatistics.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showStats();
+				fireShowStats();
 			}
 		});
 		btnLaunchMissile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frmLaunchMissile launchMissile = new frmLaunchMissile();
+				fireLaunchMissile();
 			}
 		});
 		
 		btnInterceptMissile.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frmInterceptMissile interceptMissile = new frmInterceptMissile();
+				fireInterceptMissile();
 			}
 		});
-		
-		
 	}
-	protected void addLauncherIntercepter() {
-		Object lock = new Object();
-		frmAddLauncherDestractor LDF = new frmAddLauncherDestractor(lock);
-		synchronized (lock) {
-			try {
-				lock.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		
+	//Button Choice handlers
+	protected void fireDestroyLauncher() {
+		frmDestroyLauncher DestroyLauncher = new frmDestroyLauncher(allListeners);
+		if(DestroyLauncher.getStat() == false){
+			JOptionPane.showMessageDialog(this, "All Launchers Are Hidden or Destroyed");
 		}
-		String type = LDF.getChoise();
-		System.err.println(type);
-		if (type.equals("plane") || type.equals("ship")){
-			for (WarEventUIListener l : allListeners)
-				l.addDefenseLauncherDestructorUI(type);
+	}
+	protected void fireAddLauncher() {
+		for (WarEventUIListener l : allListeners)
+			l.addEnemyLauncherUI();
+	}
+	
+	protected void fireLaunchMissile() {
+		frmLaunchMissile launchMissile = new frmLaunchMissile(allListeners);
+		if(launchMissile.getStat() == false){
+			JOptionPane.showMessageDialog(this, "All Launchers was Distroyed");
 		}
+		
 	}
 
-	protected void showStats() {
+	protected void fireInterceptMissile() {
+		frmInterceptMissile interceptMissile = new frmInterceptMissile(allListeners);
+		if(interceptMissile.getStat() == false){
+			JOptionPane.showMessageDialog(this, "No Missiles to intercept");		
+		}
+	}
+	
+	protected void fireAddIronDome() {
+		for (WarEventUIListener l : allListeners)
+			l.addIronDomeUI();
+	}
+
+	protected void fireAddLauncherIntercepter() {
+		frmAddLauncherDestractor LDF = new frmAddLauncherDestractor(allListeners);
+	}
+
+	protected void fireShowStats() {
 		for (WarEventUIListener l : allListeners)
 			l.showStatisticsUI();
 	}
 
-	public void registerListeners(WarEventUIListener listener) {
-		allListeners.add(listener);
-	}
-	
 	private void endWar() {
 		for (WarEventUIListener l : allListeners)
 			l.showStatisticsUI();
 		
 	}
-
+	
+	
+	public void registerListeners(WarEventUIListener listener) {
+		allListeners.add(listener);
+	}
+	
 	private void createButtons(){
 		btnAddMissileIntercepter = new JButton("Add Munition to Intercept missile");
 		buttonsPanel.add(btnAddMissileIntercepter);
