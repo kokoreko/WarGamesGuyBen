@@ -165,7 +165,9 @@ public class RemoteWarClientController {
 
 	}
 	@FXML protected void ExitButton(ActionEvent event){
-		connetion.close();
+		if (connetion != null){
+			connetion.close();
+		}
 		System.exit(0);
 	}
 }
