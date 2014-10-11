@@ -25,7 +25,7 @@ public class ServerConnection extends Thread {
 			try {
 				socket = new Socket("localhost", 7000);
 				IsConnected=true;
-				socket.setSoTimeout(10000);
+				socket.setSoTimeout(30000);
 				lbLine1.setText("Connected to server");
 
 				// NOTE: have to set the output stream before the input stream!

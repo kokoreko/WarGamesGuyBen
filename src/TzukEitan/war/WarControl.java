@@ -215,4 +215,6 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	}
 
 
+
+
 }

@@ -15,6 +15,7 @@ public interface WarEventListener {
 	public String addIronDome(String id);
 	
 
+
 	/** Enemy is now visible **/
 	public void enemyLauncherIsVisible(String id, boolean visible);
 
