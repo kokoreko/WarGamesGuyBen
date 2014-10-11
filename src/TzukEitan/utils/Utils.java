@@ -1,8 +1,13 @@
 package TzukEitan.utils;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import javax.swing.ImageIcon;
 
 public class Utils {
 	public static final int SECOND = 1000;
@@ -20,7 +25,27 @@ public class Utils {
 		
 		return ldt.format(dtf);
 	}
+	
+	// Image handler
+	public static Image getImage(String name) {
+		if (name == null || name.isEmpty()) {
+			return null;
+		}
 
+		URL imageURL = Utils.class.getResource(name);
+		if (imageURL == null) {
+			return null;
+		}
+
+		return Toolkit.getDefaultToolkit().createImage(imageURL);
+	}
+	public static ImageIcon getImageIcon(String name) {
+		Image image = getImage(name);
+		if (image == null) {
+			return null;
+		}
+		return new ImageIcon(image);
+	}
 	// delete all old logs in the folder
 	public static void deleteFolder() {
 		File file = new File("log");

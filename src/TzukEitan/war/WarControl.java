@@ -38,6 +38,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	@Override
 	public void enemyLaunchMissile(String myMunitionsId, String missileId, String destination, int damage) {
 		view.showEnemyLaunchMissile(myMunitionsId, missileId, destination, damage);	
+		viewGUI.showEnemyLaunchMissile(myMunitionsId, missileId, destination, damage);
 	}
 
 	@Override

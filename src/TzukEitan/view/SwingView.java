@@ -19,6 +19,7 @@ import TzukEitan.GUI.frmDestroyLauncher;
 import TzukEitan.GUI.frmInterceptMissile;
 import TzukEitan.GUI.frmLaunchMissile;
 import TzukEitan.GUI.frmShowStats;
+import TzukEitan.GUI.pnMissile;
 import TzukEitan.listeners.WarEventUIListener;
 
 import java.awt.Color;
@@ -36,27 +37,17 @@ import javax.swing.SwingConstants;
  *
  */
 public class SwingView extends JFrame{
-	private JPanel upPanel,pnLog,buttonsPanel,pnCenter;
-	private JLabel mapLabel,lblLogTitle;
+	private JPanel upPanel,panLog,buttonsPanel,panCenter,panMissile,panLauncher,panMap,panMissileIntercepter,panLauncherDestractor,missilePanel,test ;
+	private JLabel mapLabel,lblLogTitle,lblLaunchers,lblMIssiles,lblMap,lblMissileIntercepter,lblLauncherDestractor;
 	private JButton btnAddMissileIntercepter, btnLaunchMissile,btnAddLauncherIntercepter
 					,btnAddLauncher,btnInterceptLauncher,btnInterceptMissile,btnShowStatistics,btnEndWar;
 	private List<WarEventUIListener> allListeners;
 	private List<JFrame> allFrames;
 	private JTextArea textArea;
-	private JPanel pnMissile;
-	private JPanel pnLauncher;
-	private JScrollPane spMissiles;
-	private JPanel pnMap;
-	private JScrollPane spLaunchers;
-	private JPanel pnMissileIntercepter;
-	private JScrollPane spMissileIntercepter;
-	private JPanel pnLauncherDestractor;
-	private JScrollPane spLauncherDestroyer;
-	private JLabel lblLaunchers;
-	private JLabel lblMIssiles;
-	private JLabel lblMap;
-	private JLabel lblMissileIntercepter;
-	private JLabel lblLauncherDestractor;
+	private JScrollPane spMissiles,spLauncherDestroyer,spMissileIntercepter,spLaunchers;
+	
+
+
 	/**
 	 * Constructor of to the war Main Frame
 	 */
@@ -80,75 +71,78 @@ public class SwingView extends JFrame{
 		getContentPane().add(upPanel, BorderLayout.CENTER);
 		upPanel.setLayout(new BorderLayout(0, 0));
 		
-		pnLog = new JPanel();
-		pnLog.setBackground(Color.LIGHT_GRAY);
-		upPanel.add(pnLog, BorderLayout.EAST);
-		pnLog.setLayout(new BorderLayout(20, 20));
+		panLog = new JPanel();
+		panLog.setBackground(Color.LIGHT_GRAY);
+		upPanel.add(panLog, BorderLayout.EAST);
+		panLog.setLayout(new BorderLayout(20, 20));
 		
 		lblLogTitle = new JLabel("War log updates");
-		pnLog.add(lblLogTitle, BorderLayout.NORTH);
+		panLog.add(lblLogTitle, BorderLayout.NORTH);
 		
 		textArea = new JTextArea();
-		pnLog.add(textArea, BorderLayout.CENTER);
-		pnCenter= new JPanel();
-		upPanel.add(pnCenter, BorderLayout.CENTER);
-		pnCenter.setLayout(new GridLayout(0, 5, 0, 0));
+		panLog.add(textArea, BorderLayout.CENTER);
+		panCenter= new JPanel();
+		upPanel.add(panCenter, BorderLayout.CENTER);
+		panCenter.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		pnLauncher = new JPanel();
-		pnCenter.add(pnLauncher);
-		pnLauncher.setLayout(new BorderLayout(0, 0));
+		panLauncher = new JPanel();
+		panCenter.add(panLauncher);
+		panLauncher.setLayout(new BorderLayout(0, 0));
 		
 		lblLaunchers = new JLabel("Enemy Launchers");
 		lblLaunchers.setHorizontalAlignment(SwingConstants.CENTER);
-		pnLauncher.add(lblLaunchers, BorderLayout.NORTH);
+		panLauncher.add(lblLaunchers, BorderLayout.NORTH);
 		
 		spLaunchers = new JScrollPane();
-		pnLauncher.add(spLaunchers);
+		panLauncher.add(spLaunchers);
 		
-		pnMissile = new JPanel();
-		pnCenter.add(pnMissile);
-		pnMissile.setLayout(new BorderLayout(0, 0));
+		panMissile = new JPanel();
+		panCenter.add(panMissile);
+		panMissile.setLayout(new BorderLayout(0, 0));
+
+		test = new JPanel();
+//		spMissiles = new JScrollPane(test);
+//		panMissile.add(spMissiles);
 		
-		spMissiles = new JScrollPane();
-		pnMissile.add(spMissiles, BorderLayout.CENTER);
+		panMissile.add(test);
 		
 		lblMIssiles = new JLabel("In Air Missiles");
 		lblMIssiles.setHorizontalAlignment(SwingConstants.CENTER);
-		pnMissile.add(lblMIssiles, BorderLayout.NORTH);
+		panMissile.add(lblMIssiles, BorderLayout.NORTH);
 		
-		pnMap = new JPanel();
-		pnCenter.add(pnMap);
-		pnMap.setLayout(new BorderLayout(0, 0));
+		panMap = new JPanel();
+		panCenter.add(panMap);
+		panMap.setLayout(new BorderLayout(0, 0));
 		
 		lblMap = new JLabel("Israel Map");
 		lblMap.setHorizontalAlignment(SwingConstants.CENTER);
-		pnMap.add(lblMap, BorderLayout.NORTH);
+		panMap.add(lblMap, BorderLayout.NORTH);
 		
 		
 		mapLabel = new JLabel(new ImageIcon(getClass().getResource("/TzukEitan/images/Israel_relief_location_mapSmall.jpg")));
-		pnMap.add(mapLabel);
+		panMap.add(mapLabel);
 		
-		pnMissileIntercepter = new JPanel();
-		pnCenter.add(pnMissileIntercepter);
-		pnMissileIntercepter.setLayout(new BorderLayout(0, 0));
+		panMissileIntercepter = new JPanel();
+		panCenter.add(panMissileIntercepter);
+		panMissileIntercepter.setLayout(new BorderLayout(0, 0));
 		
 		lblMissileIntercepter = new JLabel("Missile Intercepters");
 		lblMissileIntercepter.setHorizontalAlignment(SwingConstants.CENTER);
-		pnMissileIntercepter.add(lblMissileIntercepter, BorderLayout.NORTH);
+		panMissileIntercepter.add(lblMissileIntercepter, BorderLayout.NORTH);
 		
 		spMissileIntercepter = new JScrollPane();
-		pnMissileIntercepter.add(spMissileIntercepter);
+		panMissileIntercepter.add(spMissileIntercepter);
 		
-		pnLauncherDestractor = new JPanel();
-		pnCenter.add(pnLauncherDestractor);
-		pnLauncherDestractor.setLayout(new BorderLayout(0, 0));
+		panLauncherDestractor = new JPanel();
+		panCenter.add(panLauncherDestractor);
+		panLauncherDestractor.setLayout(new BorderLayout(0, 0));
 		
 		lblLauncherDestractor = new JLabel("Launcher Destractors");
 		lblLauncherDestractor.setHorizontalAlignment(SwingConstants.CENTER);
-		pnLauncherDestractor.add(lblLauncherDestractor, BorderLayout.NORTH);
+		panLauncherDestractor.add(lblLauncherDestractor, BorderLayout.NORTH);
 		
 		spLauncherDestroyer = new JScrollPane();
-		pnLauncherDestractor.add(spLauncherDestroyer);
+		panLauncherDestractor.add(spLauncherDestroyer);
 		buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(Color.LIGHT_GRAY);
 		
@@ -298,6 +292,16 @@ public class SwingView extends JFrame{
 	public void showStatistics(long[] statisticsToArray) {
 		frmShowStats statsFrm = new frmShowStats();
 		statsFrm.addStats(statisticsToArray);
+		
+	}
+
+	public void showEnemyLaunchMissile(String myMunitionsId, String missileId,
+			String destination, int damage) {
+		missilePanel = new pnMissile(myMunitionsId,missileId,destination,damage);
+		test.add(missilePanel);
+		
+		repaint();
+		validate();
 		
 	}
 	
