@@ -57,7 +57,11 @@ public class WarGameServer extends Thread{
 	}
 	
 	private ArrayList<String> getDestenations(){
-		return (ArrayList<String>) Arrays.asList(warControl.getAllWarDestinationsUI());
+		ArrayList<String> destenations = new ArrayList<String>();
+		for (String string : warControl.getAllWarDestinationsUI()) {
+			destenations.add(string);
+		}
+		return destenations;
 	}
 	
 	public void run(){

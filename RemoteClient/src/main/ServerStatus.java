@@ -5,9 +5,9 @@ import java.io.Serializable;
 import main.ServerStatus.STATUS;
 
 public class ServerStatus implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = 1665144814040426543L;
+
 	public enum STATUS {Accepted,Deniend};
 	private STATUS stats;
 	private String details;
