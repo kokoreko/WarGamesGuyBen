@@ -14,11 +14,11 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 
-import GUI.frmAddLauncherDestractor;
-import GUI.frmDestroyLauncher;
-import GUI.frmInterceptMissile;
-import GUI.frmLaunchMissile;
-import GUI.frmShowStats;
+import TzukEitan.GUI.frmAddLauncherDestractor;
+import TzukEitan.GUI.frmDestroyLauncher;
+import TzukEitan.GUI.frmInterceptMissile;
+import TzukEitan.GUI.frmLaunchMissile;
+import TzukEitan.GUI.frmShowStats;
 import TzukEitan.listeners.WarEventUIListener;
 
 import java.awt.Color;
@@ -26,25 +26,43 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
+import java.awt.Dimension;
+
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 /**
  * 
  * @author Omri Glam
  *
  */
 public class SwingView extends JFrame{
-	private JPanel upPanel,pnLog,buttonsPanel,pnMap;
-	private JScrollPane spMap;
-	private JLabel mapLabel,lblLogTitle, lblLauncher;
+	private JPanel upPanel,pnLog,buttonsPanel,pnCenter;
+	private JLabel mapLabel,lblLogTitle;
 	private JButton btnAddMissileIntercepter, btnLaunchMissile,btnAddLauncherIntercepter
 					,btnAddLauncher,btnInterceptLauncher,btnInterceptMissile,btnShowStatistics,btnEndWar;
 	private List<WarEventUIListener> allListeners;
 	private List<JFrame> allFrames;
+	private JTextArea textArea;
+	private JPanel pnMissile;
+	private JPanel pnLauncher;
+	private JScrollPane spMissiles;
+	private JPanel pnMap;
+	private JScrollPane spLaunchers;
+	private JPanel pnMissileIntercepter;
+	private JScrollPane spMissileIntercepter;
+	private JPanel pnLauncherDestractor;
+	private JScrollPane spLauncherDestroyer;
+	private JLabel lblLaunchers;
+	private JLabel lblMIssiles;
+	private JLabel lblMap;
+	private JLabel lblMissileIntercepter;
+	private JLabel lblLauncherDestractor;
 	/**
 	 * Constructor of to the war Main Frame
 	 */
 	public SwingView(){
 		allFrames = new LinkedList<JFrame>();
-		setSize(getMaximumSize());
+		setSize(new Dimension(1210, 768));
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		setLayoutAndStyle();
@@ -58,7 +76,6 @@ public class SwingView extends JFrame{
 	}
 	 
 	private void setLayoutAndStyle() {
-		pnMap= new JPanel();
 		upPanel = new JPanel();
 		getContentPane().add(upPanel, BorderLayout.CENTER);
 		upPanel.setLayout(new BorderLayout(0, 0));
@@ -71,17 +88,67 @@ public class SwingView extends JFrame{
 		lblLogTitle = new JLabel("War log updates");
 		pnLog.add(lblLogTitle, BorderLayout.NORTH);
 		
-		lblLauncher = new JLabel();
-		lblLauncher.setIcon(new ImageIcon(getClass().getResource("/images/launcher.png")));
+		textArea = new JTextArea();
+		pnLog.add(textArea, BorderLayout.CENTER);
+		pnCenter= new JPanel();
+		upPanel.add(pnCenter, BorderLayout.CENTER);
+		pnCenter.setLayout(new GridLayout(0, 5, 0, 0));
 		
-		lblLauncher.setLocation(500, 500);
-		pnMap.add(lblLauncher);
+		pnLauncher = new JPanel();
+		pnCenter.add(pnLauncher);
+		pnLauncher.setLayout(new BorderLayout(0, 0));
+		
+		lblLaunchers = new JLabel("Enemy Launchers");
+		lblLaunchers.setHorizontalAlignment(SwingConstants.CENTER);
+		pnLauncher.add(lblLaunchers, BorderLayout.NORTH);
+		
+		spLaunchers = new JScrollPane();
+		pnLauncher.add(spLaunchers);
+		
+		pnMissile = new JPanel();
+		pnCenter.add(pnMissile);
+		pnMissile.setLayout(new BorderLayout(0, 0));
+		
+		spMissiles = new JScrollPane();
+		pnMissile.add(spMissiles, BorderLayout.CENTER);
+		
+		lblMIssiles = new JLabel("In Air Missiles");
+		lblMIssiles.setHorizontalAlignment(SwingConstants.CENTER);
+		pnMissile.add(lblMIssiles, BorderLayout.NORTH);
+		
+		pnMap = new JPanel();
+		pnCenter.add(pnMap);
+		pnMap.setLayout(new BorderLayout(0, 0));
+		
+		lblMap = new JLabel("Israel Map");
+		lblMap.setHorizontalAlignment(SwingConstants.CENTER);
+		pnMap.add(lblMap, BorderLayout.NORTH);
 		
 		
-		mapLabel = new JLabel(new ImageIcon(getClass().getResource("/images/Israel_relief_location_mapSmall.jpg")));           
+		mapLabel = new JLabel(new ImageIcon(getClass().getResource("/TzukEitan/images/Israel_relief_location_mapSmall.jpg")));
 		pnMap.add(mapLabel);
-		spMap = new JScrollPane(pnMap);
-		upPanel.add(spMap,BorderLayout.CENTER);
+		
+		pnMissileIntercepter = new JPanel();
+		pnCenter.add(pnMissileIntercepter);
+		pnMissileIntercepter.setLayout(new BorderLayout(0, 0));
+		
+		lblMissileIntercepter = new JLabel("Missile Intercepters");
+		lblMissileIntercepter.setHorizontalAlignment(SwingConstants.CENTER);
+		pnMissileIntercepter.add(lblMissileIntercepter, BorderLayout.NORTH);
+		
+		spMissileIntercepter = new JScrollPane();
+		pnMissileIntercepter.add(spMissileIntercepter);
+		
+		pnLauncherDestractor = new JPanel();
+		pnCenter.add(pnLauncherDestractor);
+		pnLauncherDestractor.setLayout(new BorderLayout(0, 0));
+		
+		lblLauncherDestractor = new JLabel("Launcher Destractors");
+		lblLauncherDestractor.setHorizontalAlignment(SwingConstants.CENTER);
+		pnLauncherDestractor.add(lblLauncherDestractor, BorderLayout.NORTH);
+		
+		spLauncherDestroyer = new JScrollPane();
+		pnLauncherDestractor.add(spLauncherDestroyer);
 		buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(Color.LIGHT_GRAY);
 		

@@ -1,4 +1,4 @@
-package GUI;
+package TzukEitan.GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
