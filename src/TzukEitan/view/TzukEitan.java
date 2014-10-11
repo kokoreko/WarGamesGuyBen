@@ -45,8 +45,13 @@ public class TzukEitan {
 
 		warModel.start();
 		view.start();
-		@SuppressWarnings("unused")
-		WarGameServer serverSide= new WarGameServer(warControl);
+		try {
+			@SuppressWarnings("unused")
+			WarGameServer serverSide= new WarGameServer(warControl);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
