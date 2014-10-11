@@ -11,19 +11,19 @@ import main.ServerStatus;
 import Missile.RemoteMissile;
 
 
-public class SimpleServerWithObjects extends Thread{
+public class WarGameServer extends Thread{
 	private static boolean IsRunning=false;
 	private Socket socket = null;
 	private ServerSocket server;
 	private ObjectInputStream inputStream;
 	private ObjectOutputStream outputStream;
+	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		SimpleServerWithObjects  simServer = new SimpleServerWithObjects();
+		WarGameServer  simServer = new WarGameServer();
 		
 	}
-	public SimpleServerWithObjects(){
+	public WarGameServer(){
 	
-		//Point readPoint = null;
 		try {
 			server = new ServerSocket(7000);
 			System.out.println(new Date() + " --> Server waits for client...");

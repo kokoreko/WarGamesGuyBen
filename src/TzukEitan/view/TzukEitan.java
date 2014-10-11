@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 
 import TzukEitan.war.War;
 import TzukEitan.war.WarControl;
+import TzukEitan.war.WarGameServer;
 
 public class TzukEitan {
 
@@ -24,9 +25,10 @@ public class TzukEitan {
 		ConsoleView view = new ConsoleView();
 		SwingView viewGUI = new SwingView();
 		War warModel = new War();
-
+		
 		WarControl warControl = new WarControl(warModel, view,viewGUI);
-
+		@SuppressWarnings("unused")
+		WarGameServer serverSide= new WarGameServer(warControl);
 		try {
 			warXML = new WarXMLReader("warStart.xml", warControl);
 			warXML.start();
