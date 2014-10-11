@@ -1,4 +1,4 @@
-package main;
+package TzukEitan.remote.main;
 
 import java.awt.List;
 import java.io.EOFException;
@@ -9,7 +9,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Missile.RemoteMissile;
+
+
+
+import TzukEitan.missiles.RemoteMissile;
 import javafx.scene.control.Label;
 
 public class ServerConnection extends Thread {
@@ -82,17 +85,29 @@ public class ServerConnection extends Thread {
 		return readObject;
 	}
 
-	public ServerStatus addMissile(RemoteMissile m) throws IOException, ClassNotFoundException{
+	public String addMissile(RemoteMissile m) throws IOException, ClassNotFoundException{
 		toNetOutputStream.writeObject("addMissile");
 		toNetOutputStream.writeObject(m);
-		ServerStatus readObject = (ServerStatus)fromNetInputStream.readObject();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String readObject = (String)fromNetInputStream.readObject();
 		return readObject;
 
 	}
-	public ServerStatus  addLauncher() throws IOException, ClassNotFoundException {
-		toNetOutputStream.writeObject("addLauncher");
+	public String  addLauncher() throws IOException, ClassNotFoundException {
 		
-		ServerStatus readObject = (ServerStatus)fromNetInputStream.readObject();
+		toNetOutputStream.writeObject("addLauncher");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String readObject = (String)fromNetInputStream.readObject();
 		return readObject;
 	}
 

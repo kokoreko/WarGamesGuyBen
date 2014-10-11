@@ -1,8 +1,7 @@
-package main;
+package TzukEitan.remote.main;
 
 import java.io.Serializable;
 
-import main.ServerStatus.STATUS;
 
 public class ServerStatus implements Serializable {
 

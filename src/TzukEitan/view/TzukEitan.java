@@ -27,8 +27,7 @@ public class TzukEitan {
 		War warModel = new War();
 		
 		WarControl warControl = new WarControl(warModel, view,viewGUI);
-		@SuppressWarnings("unused")
-		WarGameServer serverSide= new WarGameServer(warControl);
+		
 		try {
 			warXML = new WarXMLReader("warStart.xml", warControl);
 			warXML.start();
@@ -46,6 +45,8 @@ public class TzukEitan {
 
 		warModel.start();
 		view.start();
+		@SuppressWarnings("unused")
+		WarGameServer serverSide= new WarGameServer(warControl);
 		
 	}
 

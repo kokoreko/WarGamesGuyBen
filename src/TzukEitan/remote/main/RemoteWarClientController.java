@@ -1,10 +1,11 @@
-package main;
-
+package TzukEitan.remote.main;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Missile.RemoteMissile;
+
+
+import TzukEitan.missiles.RemoteMissile;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,11 +48,11 @@ public class RemoteWarClientController {
 		listIndex=0;
 		lbLine1.setText("Add Launcher");
 		lbLine2.setText("Adding...");
-		ServerStatus response;
+		
 		try {
-			response = connetion.addLauncher();
+			 
 	
-			lbLine2.setText(response.toString());
+			lbLine2.setText(connetion.addLauncher());
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,12 +98,14 @@ public class RemoteWarClientController {
 			if(listIndex <= 0)
 				listIndex=launchers.size()-1;
 			lbLine2.setText(launchers.get(listIndex));
+			listIndex=0;
 			break;
 		case CitySelect:
 			listIndex++;
 			if(listIndex >= 0)
 				listIndex=citys.size()-1;
 			lbLine2.setText(citys.get(listIndex));
+			listIndex=0;
 			break;
 		case FlyTimeSelect:
 			missileToSend.setFlyTime(missileToSend.getFlyTime() - 1);
@@ -142,8 +145,8 @@ public class RemoteWarClientController {
 		case DamageSelect:
 			try {
 					lbLine1.setText("Launch Missile - data send");
-					ServerStatus response = connetion.addMissile(missileToSend);
-					lbLine2.setText(response.toString());
+					String response = connetion.addMissile(missileToSend);
+					lbLine2.setText(response);
 					
 				
 			} catch (Exception e) {

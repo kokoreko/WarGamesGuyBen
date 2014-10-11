@@ -101,10 +101,12 @@ public class WarGameServer extends Thread{
 						RemoteMissile m = (RemoteMissile)inputStream.readObject();
 						warControl.addEnemyMissileUI(m.getWhoLaunchedMeId(), m.getDestination(), m.getFlyTime(), m.getFlyTime());
 						System.out.println("*** got missile to " + m.getDestination());
-						outputStream.writeObject(new ServerStatus(ServerStatus.STATUS.Accepted));
+						//ServerStatus stat = new ServerStatus(ServerStatus.STATUS.Accepted);
+						outputStream.writeObject("Accepted");
 					} catch (ClassNotFoundException | IOException e) {
 						try {
-							outputStream.writeObject(new ServerStatus(ServerStatus.STATUS.Deniend));
+						//	ServerStatus stat = new ServerStatus(ServerStatus.STATUS.Deniend);
+							outputStream.writeObject("Deniend");
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -115,13 +117,16 @@ public class WarGameServer extends Thread{
 					try {
 						System.out.println("*** got add launcher action");
 						if(addLauncher()){
-							outputStream.writeObject(new ServerStatus(ServerStatus.STATUS.Accepted));
+					
+							outputStream.writeObject("Accepted");
 						} else{
-							outputStream.writeObject(new ServerStatus(ServerStatus.STATUS.Deniend));
+							// stat = new ServerStatus(ServerStatus.STATUS.Deniend);
+							outputStream.writeObject("Deniend");
 						}
 					} catch (IOException e) {
 						try {
-							outputStream.writeObject(new ServerStatus(ServerStatus.STATUS.Deniend));
+						//	ServerStatus stat = new ServerStatus(ServerStatus.STATUS.Deniend);
+							outputStream.writeObject("Deniend");
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}

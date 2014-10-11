@@ -30,6 +30,9 @@ public class RemoteMissile implements Serializable{
 		this.flyTime = flyTime;
 		this.damage = damage;
 	}
+	public RemoteMissile() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getId() {
 		return id;
 	}
@@ -47,6 +50,24 @@ public class RemoteMissile implements Serializable{
 	}
 	public String getLaunchTime() {
 		return launchTime;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public void setWhoLaunchedMeId(String whoLaunchedMeId) {
+		this.whoLaunchedMeId = whoLaunchedMeId;
+	}
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+	public void setFlyTime(int flyTime) {
+		this.flyTime = flyTime;
+	}
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+	public void setLaunchTime(String launchTime) {
+		this.launchTime = launchTime;
 	}
 	
 	
