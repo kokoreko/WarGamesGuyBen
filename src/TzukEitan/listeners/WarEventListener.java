@@ -14,8 +14,9 @@ public interface WarEventListener {
 	/** Add defense Iron Dome from xml **/
 	public String addIronDome(String id);
 	
-
-
+	/** Enemy Launcher was add **/
+	public void enemyLauncherWasAdd(String id, boolean visible);
+	
 	/** Enemy is now visible **/
 	public void enemyLauncherIsVisible(String id, boolean visible);
 
@@ -26,7 +27,13 @@ public interface WarEventListener {
 	/** Enemy event for miss destination **/
 	public void enemyMissDestination(String whoLaunchedMeId, String id,
 			String destination, String launchTime);
-
+	
+	/** Defense Iron Dome was created **/
+	public void defenseCreatedIronDome(String id);
+	
+	/** Defense Launcher Destroyer was created **/
+	public void defenseCreatedLauncherDestractor(String id,String type);
+	
 	/** Defense Iron Dome launch interception missile **/
 	public void defenseLaunchMissile(String myMunitionsId, String missileId,
 			String enemyMissileId);

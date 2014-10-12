@@ -21,9 +21,10 @@ import java.util.Vector;
 import javax.swing.JComboBox;
 
 import TzukEitan.listeners.WarEventUIListener;
+import TzukEitan.utils.Utils;
 
 public class frmDestroyLauncher extends JFrame {
-	private final Font font = new Font("Arial", Font.PLAIN, 16);
+
 
 	private JPanel midPanel,downPanel;
 	private JButton btnLaunchMissile;
@@ -60,14 +61,14 @@ public class frmDestroyLauncher extends JFrame {
 		rightPanel.add(cmbChooseLauncher);
 		
 		lblChooseCity= new JLabel("Choose Launcher to destroy");
-		lblChooseCity.setFont(font);
+		lblChooseCity.setFont(Utils.FONT);
 		rightPanel.add(lblChooseCity, BorderLayout.NORTH);
 		
 		downPanel = new JPanel();
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
 		
 		btnLaunchMissile = new JButton("Destroy!");
-		btnLaunchMissile.setFont(font);
+		btnLaunchMissile.setFont(Utils.FONT);
 		downPanel.add(btnLaunchMissile);
 		btnLaunchMissile.addActionListener(new ActionListener() {
 			@Override

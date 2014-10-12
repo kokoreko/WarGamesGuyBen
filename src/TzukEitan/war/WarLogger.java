@@ -205,4 +205,22 @@ public class WarLogger implements WarEventListener {
 		return null;
 	}
 
+	@Override
+	public void enemyLauncherWasAdd(String id, boolean visible) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void defenseCreatedIronDome(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void defenseCreatedLauncherDestractor(String id, String type) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

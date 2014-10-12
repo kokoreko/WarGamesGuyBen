@@ -11,6 +11,10 @@ import java.awt.Dimension;
 
 import javax.swing.border.CompoundBorder;
 
+import TzukEitan.utils.Utils;
+
+import java.awt.Font;
+
 public class frmShowStats extends JFrame {
 	private JPanel mainPanel;
 	private DefaultTableModel tableModel;
@@ -31,6 +35,8 @@ public class frmShowStats extends JFrame {
 				,"Total damage"});
 		
 		tblStats = new JTable(tableModel);
+		tblStats.setFont(Utils.FONT);
+		
 		jsmStats = new JScrollPane(tblStats);
 		jsmStats.setEnabled(false);
 		jsmStats.setPreferredSize(mainPanel.getSize());

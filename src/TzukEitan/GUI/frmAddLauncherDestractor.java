@@ -12,6 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
 import TzukEitan.listeners.WarEventUIListener;
+import TzukEitan.utils.Utils;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class frmAddLauncherDestractor extends JFrame {
-	private final Font font = new Font("Arial", Font.PLAIN, 16);
 	private JPanel upPanel,midPanel,downPanel;
 	private JLabel topLabel;
 	private JRadioButton rbPlane,rbShip;
@@ -35,7 +35,7 @@ public class frmAddLauncherDestractor extends JFrame {
 		getContentPane().add(upPanel, BorderLayout.NORTH);
 		
 		topLabel = new JLabel("Choose the type of launcher destractor:");
-		topLabel.setFont(font);
+		topLabel.setFont(Utils.FONT);
 		upPanel.add(topLabel);
 		
 		midPanel = new JPanel();
@@ -53,18 +53,18 @@ public class frmAddLauncherDestractor extends JFrame {
 		rbPlane = new JRadioButton("Plane");
 		rbPlane.setActionCommand("plane");
 		rbPlane.setEnabled(true);
-		rbPlane.setFont(font);
+		rbPlane.setFont(Utils.FONT);
 		radioBtn.add(rbPlane);
 		midPanel.add(rbPlane);
 		
 		rbShip = new JRadioButton("Ship");
 		rbShip.setActionCommand("ship");
-		rbShip.setFont(font);
+		rbShip.setFont(Utils.FONT);
 		radioBtn.add(rbShip);
 		midPanel.add(rbShip);
 		
 		btnAddLauncherDestractor = new JButton("Add");
-		btnAddLauncherDestractor.setFont(font);
+		btnAddLauncherDestractor.setFont(Utils.FONT);
 		downPanel.add(btnAddLauncherDestractor);
 
 		setSize(335,225);

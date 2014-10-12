@@ -40,12 +40,28 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 		view.showEnemyLaunchMissile(myMunitionsId, missileId, destination, damage);	
 		viewGUI.showEnemyLaunchMissile(myMunitionsId, missileId, destination, damage);
 	}
-
+	
+	@Override
+	public void enemyLauncherWasAdd(String id, boolean visible) {
+		viewGUI.showEnemyAddLauncher(id,visible);
+	}
+	
 	@Override
 	public void enemyLauncherIsVisible(String id,boolean visible) {
 		view.showLauncherIsVisible(id,visible);
+		viewGUI.showLauncherIsVisible(id, visible);
 	}
-
+	
+	@Override
+	public void defenseCreatedIronDome(String id) {
+		viewGUI.showIronDome(id);
+	}
+	
+	@Override
+	public void defenseCreatedLauncherDestractor(String id, String type) {
+		viewGUI.showLauncherDestractor(id,type);
+	}
+	
 	@Override
 	public void defenseMissInterceptionMissile(String whoLaunchedMeId, String missileId, String enemyMissileId, int damage) {
 		view.showMissInterceptionMissile(whoLaunchedMeId, missileId, enemyMissileId);
@@ -54,17 +70,19 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	@Override
 	public void defenseHitInterceptionMissile(String whoLaunchedMeId, String missileId, String enemyMissileId) {
 		view.showHitInterceptionMissile(whoLaunchedMeId, missileId, enemyMissileId);
+		viewGUI.showHitInterceptionMissile(enemyMissileId);
 	}
 
 	@Override
 	public void enemyHitDestination(String whoLaunchedMeId, String missileId, String destination, int damage, String launchTime) {
 		view.showEnemyHitDestination(whoLaunchedMeId, missileId, destination, damage);
+		viewGUI.showEnemyHitDestination(missileId);
 	}
 
 	@Override
 	public void defenseMissInterceptionLauncher(String whoLaunchedMeId,	String type, String missileId, String enemyLauncherId) {
 		view.showMissInterceptionLauncher(whoLaunchedMeId,type, enemyLauncherId, missileId);
-		
+
 	}
 	
 	@Override
@@ -75,6 +93,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	@Override
 	public void defenseHitInterceptionLauncher(String whoLaunchedMeId, String type, String missileId, String enemyLauncherId) {
 		view.showHitInterceptionLauncher(whoLaunchedMeId, type, enemyLauncherId, missileId);
+		viewGUI.showHitInterceptionLauncher(whoLaunchedMeId, type, enemyLauncherId, missileId);
 	}
 	
 	
@@ -214,6 +233,12 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 			String destination, String launchTime) {
 		view.showEnemyMissDestination(whoLaunchedMeId, id, destination, launchTime);
 	}
+
+
+
+
+
+
 
 
 

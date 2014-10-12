@@ -23,8 +23,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class pnMissile extends JPanel{
 	
-	private final Font FONT = new Font("Arial", Font.PLAIN, 8);
-	private static String MISSILE_IMAGE = "/TzukEitan/images/Missile.png";
+
 			
 	private JLabel lblMissile;
 	private JScrollPane jspMissileInfo;
@@ -38,7 +37,7 @@ public class pnMissile extends JPanel{
 		
 		jtaMissileInfo = new JTextArea("Launched by: " + myMunitionsId + "\nTo: " + destination 
 				+ "\nDamage: " + damage);
-		jtaMissileInfo.setFont(FONT);
+		jtaMissileInfo.setFont(Utils.PANEL_FONT);
 		jspMissileInfo = new JScrollPane(jtaMissileInfo);
 		add(jspMissileInfo, "cell 0 1,grow");
 		
@@ -51,7 +50,7 @@ public class pnMissile extends JPanel{
 
 		lblMissile = new JLabel();
 		lblMissile.setText(missileId);
-		lblMissile.setIcon(Utils.getImageIcon(MISSILE_IMAGE));
+		lblMissile.setIcon(Utils.getImageIcon(Utils.MISSILE_IMAGE));
 		lblMissile.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMissile.setBorder(BorderFactory.createEtchedBorder());
 		lblMissile.setVerticalTextPosition(SwingConstants.TOP);

@@ -1,5 +1,6 @@
 package TzukEitan.utils;
 
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -13,6 +14,15 @@ public class Utils {
 	public static final int SECOND = 1000;
 	public static final int FLY_TIME = 3;
 	public static final int LAUNCH_DURATION = 1000;
+	public static final String MISSILE_IMAGE = "/TzukEitan/images/Missile.png";
+	public static final String LAUNCHER_IMAGE = "/TzukEitan/images/MissileLauncher.png";
+	public static final String PLANE_IMAGE = "/TzukEitan/images/plane.png";
+	public static final String SHIP_IMAGE = "/TzukEitan/images/Ship.png";
+	public static final String IRON_DOME_IMAGE = "/TzukEitan/images/IronDome.png";
+	
+	public static final Font PANEL_FONT = new Font("Arial", Font.PLAIN, 10);
+	public static final Font FONT = new Font("Arial", Font.PLAIN, 16);
+	
 	private static final double DESTRACOTR_SUCCES_RATE = 0.95;
 	private static final double SUCCES_RATE = 0.7;
 	private static final double IS_HIDDEN_RATE = 0.5;

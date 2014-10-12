@@ -19,9 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
 import TzukEitan.listeners.WarEventUIListener;
+import TzukEitan.utils.Utils;
 
 public class frmInterceptMissile extends JFrame {
-	private final Font font = new Font("Arial", Font.PLAIN, 16);
+
 	private boolean state = true;
 	private JPanel mainPanel,downPanel,panel,panel1;;
 	private JButton btnInterceptMissile;
@@ -54,7 +55,7 @@ public class frmInterceptMissile extends JFrame {
 		mainPanel.add(panel, BorderLayout.NORTH);
 		
 		lblChooseAMissile = new JLabel("Choose A Missile to Intercept");
-		lblChooseAMissile.setFont(font);
+		lblChooseAMissile.setFont(Utils.FONT);
 		panel.add(lblChooseAMissile);
 		
 		panel1 = new JPanel();
@@ -67,7 +68,7 @@ public class frmInterceptMissile extends JFrame {
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
 		
 		btnInterceptMissile = new JButton("Intercept!");
-		btnInterceptMissile.setFont(font);
+		btnInterceptMissile.setFont(Utils.FONT);
 		downPanel.add(btnInterceptMissile);
 		btnInterceptMissile.addActionListener(new ActionListener() {
 			@Override

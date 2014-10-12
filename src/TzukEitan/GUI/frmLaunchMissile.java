@@ -27,7 +27,7 @@ import TzukEitan.listeners.WarEventUIListener;
 import TzukEitan.utils.Utils;
 
 public class frmLaunchMissile extends JFrame {
-	private final Font font = new Font("Arial", Font.PLAIN, 16);
+
 	
 	private JPanel midPanel,upPanel,downPanel;
 	private JButton btnLaunchMissile;
@@ -73,7 +73,7 @@ public class frmLaunchMissile extends JFrame {
 		leftPanel.add(cmbChooseLauncher);
 		
 		lblChooseLauncher = new JLabel("Choose a Launcher");
-		lblChooseLauncher.setFont(font);
+		lblChooseLauncher.setFont(Utils.FONT);
 		leftPanel.add(lblChooseLauncher, BorderLayout.NORTH);
 		
 		rightPanel = new JPanel();
@@ -84,14 +84,14 @@ public class frmLaunchMissile extends JFrame {
 		rightPanel.add(cmbChooseCity);
 		
 		lblChooseCity= new JLabel("Choose a city to strike");
-		lblChooseCity.setFont(font);
+		lblChooseCity.setFont(Utils.FONT);
 		rightPanel.add(lblChooseCity, BorderLayout.NORTH);
 		
 		downPanel = new JPanel();
 		getContentPane().add(downPanel, BorderLayout.SOUTH);
 		
 		btnLaunchMissile = new JButton("Launch!");
-		btnLaunchMissile.setFont(font);
+		btnLaunchMissile.setFont(Utils.FONT);
 		downPanel.add(btnLaunchMissile);
 		btnLaunchMissile.addActionListener(new ActionListener() {
 			@Override

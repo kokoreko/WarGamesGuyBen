@@ -33,7 +33,7 @@ public class LauncherDestructor extends Thread implements Munitions{
 	}
 
 	public void run() {
-
+		fireLauncherDestractorWasCreated(id, type);
 		while (isRunning) {
 			synchronized (this) {
 				try {
@@ -126,6 +126,13 @@ public class LauncherDestructor extends Thread implements Munitions{
 		return currentMissile;
 	}
 
+	// Event
+	private void fireLauncherDestractorWasCreated(String id,String type) {
+		for (WarEventListener l : allListeners) {
+			l.defenseCreatedLauncherDestractor(id, type);
+		}
+	}
+	
 	// Event
 	private void fireLaunchMissileEvent(String missileId) {
 		for (WarEventListener l : allListeners) {

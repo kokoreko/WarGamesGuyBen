@@ -32,6 +32,7 @@ public class IronDome extends Thread implements Munitions {
 
 	public void run() {
 		// this thread will be alive until the war is over
+		fireIronDomeCreated(id);
 		while (isRunning) {
 			synchronized (this) {
 				try {
@@ -111,7 +112,12 @@ public class IronDome extends Thread implements Munitions {
 	public DefenseMissile getCurrentMissile() {
 		return currentMissile;
 	}
-
+	
+	// Event
+	private void fireIronDomeCreated(String id) {
+		for (WarEventListener l : allListeners) 
+			l.defenseCreatedIronDome(id);
+	}
 	// Event
 	private void fireLaunchMissileEvent(String missileId) {
 		for (WarEventListener l : allListeners) {

@@ -36,6 +36,7 @@ public class EnemyLauncher extends Thread implements Munitions{
 
 	public void run() {
 		// this thread will be alive until he will be hit
+		fireEnemyLauncherWasCreated(id, isHidden);
 		while (!beenHit) {
 			synchronized (this) {
 				try {
@@ -137,7 +138,13 @@ public class EnemyLauncher extends Thread implements Munitions{
 			l.enemyLauncherIsVisible(id, visible);
 		}
 	}
-
+	
+	// Event
+	private void fireEnemyLauncherWasCreated(String launcherID,boolean visible){
+		for (WarEventListener l : allListeners) 
+			l.enemyLauncherWasAdd(launcherID, visible);
+		
+	}
 	// Event
 	private void fireLaunchMissileEvent(String missileId) {
 		for (WarEventListener l : allListeners) {

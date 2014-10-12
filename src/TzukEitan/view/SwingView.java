@@ -19,12 +19,16 @@ import TzukEitan.GUI.frmDestroyLauncher;
 import TzukEitan.GUI.frmInterceptMissile;
 import TzukEitan.GUI.frmLaunchMissile;
 import TzukEitan.GUI.frmShowStats;
+import TzukEitan.GUI.pnLauncher;
+import TzukEitan.GUI.pnLauncherDistroyer;
 import TzukEitan.GUI.pnMissile;
+import TzukEitan.GUI.pnMissileIntercepter;
 import TzukEitan.listeners.WarEventUIListener;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.Dimension;
@@ -37,7 +41,9 @@ import javax.swing.SwingConstants;
  *
  */
 public class SwingView extends JFrame{
-	private JPanel upPanel,panLog,buttonsPanel,panCenter,panMissile,panLauncher,panMap,panMissileIntercepter,panLauncherDestractor,missilePanel,test ;
+	private JPanel upPanel,panLog,buttonsPanel,panCenter,panMissile,panLauncher,panMap,panMissileIntercepter,
+					panLauncherDestractor,missileAllPanels,launcherAllPanels,lancherDestroyerAllPanel,missileIntercepterAllPanel;
+			
 	private JLabel mapLabel,lblLogTitle,lblLaunchers,lblMIssiles,lblMap,lblMissileIntercepter,lblLauncherDestractor;
 	private JButton btnAddMissileIntercepter, btnLaunchMissile,btnAddLauncherIntercepter
 					,btnAddLauncher,btnInterceptLauncher,btnInterceptMissile,btnShowStatistics,btnEndWar;
@@ -45,8 +51,8 @@ public class SwingView extends JFrame{
 	private List<JFrame> allFrames;
 	private JTextArea textArea;
 	private JScrollPane spMissiles,spLauncherDestroyer,spMissileIntercepter,spLaunchers;
-	
-
+	private Hashtable<String, pnLauncher> allLauncherPanels;
+	private Hashtable<String, pnMissile> allMissilePanels;
 
 	/**
 	 * Constructor of to the war Main Frame
@@ -62,7 +68,8 @@ public class SwingView extends JFrame{
 		
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		allLauncherPanels = new Hashtable<String, pnLauncher>();
+		allMissilePanels = new Hashtable<String, pnMissile>();
 		allListeners = new LinkedList<WarEventUIListener>();
 	}
 	 
@@ -93,18 +100,20 @@ public class SwingView extends JFrame{
 		lblLaunchers.setHorizontalAlignment(SwingConstants.CENTER);
 		panLauncher.add(lblLaunchers, BorderLayout.NORTH);
 		
-		spLaunchers = new JScrollPane();
+		launcherAllPanels = new JPanel();
+		launcherAllPanels.setLayout(new GridLayout(0, 2, 0, 0));
+		spLaunchers = new JScrollPane(launcherAllPanels);
 		panLauncher.add(spLaunchers);
 		
 		panMissile = new JPanel();
 		panCenter.add(panMissile);
 		panMissile.setLayout(new BorderLayout(0, 0));
 
-		test = new JPanel();
-//		spMissiles = new JScrollPane(test);
-//		panMissile.add(spMissiles);
+		missileAllPanels = new JPanel();
+		missileAllPanels.setLayout(new GridLayout(0, 2, 0, 0));
+		spMissiles = new JScrollPane(missileAllPanels);
+		panMissile.add(spMissiles);
 		
-		panMissile.add(test);
 		
 		lblMIssiles = new JLabel("In Air Missiles");
 		lblMIssiles.setHorizontalAlignment(SwingConstants.CENTER);
@@ -130,7 +139,9 @@ public class SwingView extends JFrame{
 		lblMissileIntercepter.setHorizontalAlignment(SwingConstants.CENTER);
 		panMissileIntercepter.add(lblMissileIntercepter, BorderLayout.NORTH);
 		
-		spMissileIntercepter = new JScrollPane();
+		missileIntercepterAllPanel = new JPanel();
+		missileIntercepterAllPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		spMissileIntercepter = new JScrollPane(missileIntercepterAllPanel);
 		panMissileIntercepter.add(spMissileIntercepter);
 		
 		panLauncherDestractor = new JPanel();
@@ -141,8 +152,11 @@ public class SwingView extends JFrame{
 		lblLauncherDestractor.setHorizontalAlignment(SwingConstants.CENTER);
 		panLauncherDestractor.add(lblLauncherDestractor, BorderLayout.NORTH);
 		
-		spLauncherDestroyer = new JScrollPane();
+		lancherDestroyerAllPanel = new JPanel();
+		lancherDestroyerAllPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		spLauncherDestroyer = new JScrollPane(lancherDestroyerAllPanel);
 		panLauncherDestractor.add(spLauncherDestroyer);
+		
 		buttonsPanel = new JPanel();
 		buttonsPanel.setBackground(Color.LIGHT_GRAY);
 		
@@ -282,6 +296,13 @@ public class SwingView extends JFrame{
 		btnEndWar.setToolTipText("End the war and show statistics");
 		buttonsPanel.add(btnEndWar);
 	}
+	private void removePanel(JPanel removePanel, JPanel panelList){
+		
+		panelList.remove(removePanel);
+		
+		repaint();
+		validate();
+	}
 
 	public void showDefenseLaunchMissile(String myMunitionsId,
 			String missileId, String enemyMissileId) {
@@ -297,14 +318,74 @@ public class SwingView extends JFrame{
 
 	public void showEnemyLaunchMissile(String myMunitionsId, String missileId,
 			String destination, int damage) {
-		missilePanel = new pnMissile(myMunitionsId,missileId,destination,damage);
-		test.add(missilePanel);
+		pnMissile missilePanel = new pnMissile(myMunitionsId,missileId,destination,damage);
+		allMissilePanels.put(missileId, missilePanel);
+		missileAllPanels.add(missilePanel);
 		
 		repaint();
 		validate();
 		
 	}
-	
+
+	public void showEnemyAddLauncher(String LauncherId, boolean isHidden) {
+		pnLauncher launcherPanel = new pnLauncher(LauncherId,isHidden);
+		allLauncherPanels.put(LauncherId, launcherPanel);
+		launcherAllPanels.add(launcherPanel);
+		
+		repaint();
+		validate();
+		
+	}
+
+	public void showLauncherIsVisible(String id, boolean visible) {
+		pnLauncher tempLauncher = allLauncherPanels.get(id);
+		tempLauncher.setHiden(visible);
+		
+		repaint();
+		validate();
+	}
+
+	public void showIronDome(String id) {
+		pnMissileIntercepter ironDome = new pnMissileIntercepter(id);
+		missileIntercepterAllPanel.add(ironDome);
+		
+		repaint();
+		validate();
+	}
+
+	public void showLauncherDestractor(String id, String type) {
+		pnLauncherDistroyer launcherDes = new pnLauncherDistroyer(id, type);
+		lancherDestroyerAllPanel.add(launcherDes);
+		
+		repaint();
+		validate();
+	}
+
+	public void showHitInterceptionMissile(String enemyMissileId) {
+		JPanel missilePanel = allMissilePanels.get(enemyMissileId);
+		removePanel(missilePanel, missileAllPanels);
+		
+	}
+
+	public void showEnemyHitDestination(String enemyMissileId) {
+		JPanel missilePanel = allMissilePanels.get(enemyMissileId);
+		removePanel(missilePanel, missileAllPanels);
+		// Create a Red Dot On The Map!!!!!!!!!!!!!!!!!!
+	}
+
+	public void showMissInterceptionLauncher(String enemyLauncherId) {
+		
+		
+	}
+
+	public void showHitInterceptionLauncher(String whoLaunchedMeId,
+			String type, String enemyLauncherId, String missileId) {
+		
+		JPanel launcherPanel = allLauncherPanels.get(enemyLauncherId);
+		removePanel(launcherPanel, launcherAllPanels);
+		
+	}
+
 	
 	
 	
