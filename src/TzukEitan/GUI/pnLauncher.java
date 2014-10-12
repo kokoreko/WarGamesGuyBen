@@ -15,19 +15,19 @@ import TzukEitan.utils.Utils;
 
 public class pnLauncher extends JPanel {
 
-	private JLabel lblLauncher;
+	private JLabel lblLauncher,state;
 	private JScrollPane jspLauncherInfo;
-	private JTextArea jtaLauncherInfo;
-	private String[] stat= {"Hidden","Visabale"};
+
+	private String[] stat= {"Visabale","Hidden"};
 	public pnLauncher(String LauncherId,boolean isHidden) {
 		int i=1;
 		initLabelAndIcon(LauncherId);
 		setLayout(new MigLayout("", "[124px]", "[75px][75px]"));
 		add(lblLauncher, "cell 0 0,grow");
 		if(isHidden) i = 0;
-		jtaLauncherInfo = new JTextArea("Lancher is: " + stat[i]);
-		jtaLauncherInfo.setFont(Utils.PANEL_FONT);
-		jspLauncherInfo = new JScrollPane(jtaLauncherInfo);
+		state = new JLabel("Lancher is: " + stat[i]);
+		state.setFont(Utils.PANEL_FONT);
+		jspLauncherInfo = new JScrollPane(state);
 		add(jspLauncherInfo, "cell 0 1,grow");
 
 		setPreferredSize(new Dimension(100, 146));
@@ -50,8 +50,7 @@ public class pnLauncher extends JPanel {
 	public void setHiden(boolean isHidden) {
 		int i=1;
 		if(isHidden) i = 0 ;
-		jtaLauncherInfo = new JTextArea("Lancher is: " + stat[i]);
-		repaint();
-		validate();
+		state.setText("Lancher is: " + stat[i]);
+
 	}
 }

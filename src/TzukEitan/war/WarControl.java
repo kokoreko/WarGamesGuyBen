@@ -232,6 +232,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	public void enemyMissDestination(String whoLaunchedMeId, String id,
 			String destination, String launchTime) {
 		view.showEnemyMissDestination(whoLaunchedMeId, id, destination, launchTime);
+		viewGUI.showEnemyMissDestination(whoLaunchedMeId, id, destination, launchTime);
 	}
 
 

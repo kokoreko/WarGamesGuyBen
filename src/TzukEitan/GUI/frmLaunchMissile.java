@@ -98,8 +98,10 @@ public class frmLaunchMissile extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String launcher = (String)cmbChooseLauncher.getSelectedItem();
 				String city = (String)cmbChooseCity.getSelectedItem();
+				
 				int damage = (int) ((Math.random() * Utils.SECOND) + Utils.SECOND * 2);
 				int flyTime = (int) ((Math.random() * Utils.FLY_TIME) + Utils.FLY_TIME);
+				
 				for(WarEventUIListener l : allListeners ){
 					l.addEnemyMissileUI(launcher, city, damage, flyTime);
 				}

@@ -20,7 +20,7 @@ public class Utils {
 	public static final String SHIP_IMAGE = "/TzukEitan/images/Ship.png";
 	public static final String IRON_DOME_IMAGE = "/TzukEitan/images/IronDome.png";
 	
-	public static final Font PANEL_FONT = new Font("Arial", Font.PLAIN, 10);
+	public static final Font PANEL_FONT = new Font("Arial", Font.PLAIN, 9);
 	public static final Font FONT = new Font("Arial", Font.PLAIN, 16);
 	
 	private static final double DESTRACOTR_SUCCES_RATE = 0.95;

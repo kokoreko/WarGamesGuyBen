@@ -181,7 +181,7 @@ public class SwingView extends JFrame{
 		btnAddLauncher.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			fireAddLauncher();
+				fireAddLauncher();
 			}
 		});
 		
@@ -297,9 +297,9 @@ public class SwingView extends JFrame{
 		buttonsPanel.add(btnEndWar);
 	}
 	private void removePanel(JPanel removePanel, JPanel panelList){
-		
+		try{
 		panelList.remove(removePanel);
-		
+		}catch(Exception e){System.err.println("ZONA BAT ZONA");}
 		repaint();
 		validate();
 	}
@@ -341,8 +341,6 @@ public class SwingView extends JFrame{
 		pnLauncher tempLauncher = allLauncherPanels.get(id);
 		tempLauncher.setHiden(visible);
 		
-		repaint();
-		validate();
 	}
 
 	public void showIronDome(String id) {
@@ -373,16 +371,20 @@ public class SwingView extends JFrame{
 		// Create a Red Dot On The Map!!!!!!!!!!!!!!!!!!
 	}
 
-	public void showMissInterceptionLauncher(String enemyLauncherId) {
-		
-		
-	}
 
 	public void showHitInterceptionLauncher(String whoLaunchedMeId,
 			String type, String enemyLauncherId, String missileId) {
 		
 		JPanel launcherPanel = allLauncherPanels.get(enemyLauncherId);
 		removePanel(launcherPanel, launcherAllPanels);
+		
+	}
+
+	public void showEnemyMissDestination(String whoLaunchedMeId, String id,
+			String destination, String launchTime) {
+		
+		JPanel missilePanel = allMissilePanels.get(id);
+		removePanel(missilePanel, missileAllPanels);
 		
 	}
 
