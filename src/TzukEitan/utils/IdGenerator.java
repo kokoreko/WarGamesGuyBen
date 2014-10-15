@@ -39,7 +39,7 @@ public class IdGenerator {
 	// Iron Dome:
 	/** Used for sync xml id's and the program id's **/
 	public static void updateIronDomeId(String id) {
-		String temp = id.substring(2, id.length());
+		String temp = id.substring(1, id.length());
 		try {
 			ironDomeId = Integer.parseInt(temp);
 			maxIronDomeId = (ironDomeId > maxIronDomeId) ? ironDomeId
