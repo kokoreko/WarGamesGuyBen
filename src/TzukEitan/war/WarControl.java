@@ -11,16 +11,20 @@ import TzukEitan.view.WarXMLReader;
 
 public class WarControl implements WarEventListener, WarEventUIListener{
 	private War warModel;
+	private WarDb warDbModel;
 	private ConsoleView view;
 	private SwingView viewGUI;
 	
-	public WarControl(War warModel, ConsoleView view, SwingView viewGUI){
+	public WarControl(War warModel,WarDb warDbModel, ConsoleView view, SwingView viewGUI){
 		this.warModel = warModel;
 		this.view = view;
 		this.viewGUI = viewGUI;
+		this.warDbModel =warDbModel;
+		
 		warModel.registerListenerts(this);
 		view.registerListeners(this);
 		viewGUI.registerListeners(this);
+		warDbModel.registerListeners(this);
 	}
 	
 	//Method that related to the view & viewGUI
@@ -157,18 +161,22 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 
 	@Override
 	public void addEnemyMissileUI(String launcherId, String destination, int damage, int flyTime) {
-		warModel.launchEnemyMissile(launcherId, destination, damage, flyTime);
+		String id = warModel.launchEnemyMissile(launcherId, destination, damage, flyTime);
+		warDbModel.launchEnemyMissile(id,launcherId,destination,damage,flyTime);
+		
 	}
 
 	@Override
 	public String addEnemyLauncherUI(String launcherId, boolean isHidden) {
 		String id = warModel.addEnemyLauncher(launcherId, isHidden);
+		warDbModel.addEnemyLauncher(id, isHidden);
 		return id;
 	}
 	
 	@Override
 	public String addEnemyLauncherUI() {
 		String id = warModel.addEnemyLauncher();
+		
 		return id;
 	}
 
