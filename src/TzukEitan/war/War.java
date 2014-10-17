@@ -278,7 +278,7 @@ public class War extends Thread {
 		return visibleIds;
 	}
 
-	public void launchEnemyMissile(String launcherId, String destination,
+	public String launchEnemyMissile(String launcherId, String destination,
 			int damage, int flyTime) {
 		for (EnemyLauncher el : enemyLauncherArr) {
 			// Check if there is enemy launcher with given id
@@ -288,13 +288,16 @@ public class War extends Thread {
 				if (el.getCurrentMissile() == null) {
 					synchronized (el) {
 						el.setMissileInfo(destination, damage, flyTime);
+						String ret =IdGenerator.enemyMissileNextId();
 						el.notify();
+						return ret;
 					}//synchronized
 					
 				}//if
 				
 			}//if
 		}//for
+		return null;
 	}//method
 
 	/** add enemy launcher without given parameters */
