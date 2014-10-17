@@ -3,12 +3,15 @@ package TzukEitan.utils;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Utils {
 	public static final int SECOND = 1000;
@@ -91,4 +94,13 @@ public class Utils {
         
         return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
+
+	public static void closeApplication(JFrame parent) {
+		int result = JOptionPane.showConfirmDialog(parent,
+				"Are you sure you want to exit?", "Goodbye?",
+				JOptionPane.YES_NO_OPTION);
+		if (result == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
+	}
 }

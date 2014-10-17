@@ -1,5 +1,7 @@
 package TzukEitan.view;
 
+import javafx.scene.layout.Border;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,11 +25,16 @@ import TzukEitan.GUI.pnLauncher;
 import TzukEitan.GUI.pnLauncherDistroyer;
 import TzukEitan.GUI.pnMissile;
 import TzukEitan.GUI.pnMissileIntercepter;
+import TzukEitan.GUI.warMenu;
 import TzukEitan.listeners.WarEventUIListener;
+import TzukEitan.utils.Utils;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,7 +49,7 @@ import javax.swing.SwingConstants;
  */
 public class SwingView extends JFrame{
 	private JPanel upPanel,panLog,buttonsPanel,panCenter,panMissile,panLauncher,panMap,panMissileIntercepter,
-					panLauncherDestractor,missileAllPanels,launcherAllPanels,lancherDestroyerAllPanel,missileIntercepterAllPanel;
+					panLauncherDestractor,missileAllPanels,launcherAllPanels,lancherDestroyerAllPanel,missileIntercepterAllPanel,mapAllPanel;
 			
 	private JLabel mapLabel,lblLogTitle,lblLaunchers,lblMIssiles,lblMap,lblMissileIntercepter,lblLauncherDestractor;
 	private JButton btnAddMissileIntercepter, btnLaunchMissile,btnAddLauncherIntercepter
@@ -50,9 +57,10 @@ public class SwingView extends JFrame{
 	private List<WarEventUIListener> allListeners;
 	private List<JFrame> allFrames;
 	private JTextArea textArea;
-	private JScrollPane spMissiles,spLauncherDestroyer,spMissileIntercepter,spLaunchers;
+	private JScrollPane spMissiles,spLauncherDestroyer,spMissileIntercepter,spLaunchers,spMap;
 	private Hashtable<String, pnLauncher> allLauncherPanels;
 	private Hashtable<String, pnMissile> allMissilePanels;
+	private boolean warHasEnded = false;
 
 	/**
 	 * Constructor of to the war Main Frame
@@ -66,17 +74,26 @@ public class SwingView extends JFrame{
 		createButtons();
 		addButtonsListener();
 		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				Utils.closeApplication(SwingView.this);
+			}
+		});
+		
 		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		allLauncherPanels = new Hashtable<String, pnLauncher>();
 		allMissilePanels = new Hashtable<String, pnMissile>();
 		allListeners = new LinkedList<WarEventUIListener>();
 	}
 	 
 	private void setLayoutAndStyle() {
+		warMenu warMenuBar = new warMenu(this);
 		upPanel = new JPanel();
 		getContentPane().add(upPanel, BorderLayout.CENTER);
 		upPanel.setLayout(new BorderLayout(0, 0));
+		upPanel.add(warMenuBar,BorderLayout.NORTH);
 		
 		panLog = new JPanel();
 		panLog.setBackground(Color.LIGHT_GRAY);
@@ -119,17 +136,24 @@ public class SwingView extends JFrame{
 		lblMIssiles.setHorizontalAlignment(SwingConstants.CENTER);
 		panMissile.add(lblMIssiles, BorderLayout.NORTH);
 		
-		panMap = new JPanel();
-		panCenter.add(panMap);
-		panMap.setLayout(new BorderLayout(0, 0));
+		mapAllPanel = new JPanel();
 		
+		panMap = new JPanel();
+		panMap.setLayout(new BorderLayout(0, 0));
 		lblMap = new JLabel("Israel Map");
 		lblMap.setHorizontalAlignment(SwingConstants.CENTER);
 		panMap.add(lblMap, BorderLayout.NORTH);
 		
-		
 		mapLabel = new JLabel(new ImageIcon(getClass().getResource("/TzukEitan/images/Israel_relief_location_mapSmall.jpg")));
-		panMap.add(mapLabel);
+		spMap = new JScrollPane(mapLabel);
+		mapAllPanel = new JPanel();
+		mapAllPanel.setLayout(new GridLayout(0, 1, 0, 0));
+		mapAllPanel.add(spMap);
+		
+		panMap.add(mapAllPanel, BorderLayout.CENTER);
+		panCenter.add(panMap);
+		
+		
 		
 		panMissileIntercepter = new JPanel();
 		panCenter.add(panMissileIntercepter);
@@ -261,8 +285,8 @@ public class SwingView extends JFrame{
 
 	private void endWar() {
 		for (WarEventUIListener l : allListeners)
-			l.showStatisticsUI();
-		
+			l.finishWarUI();	
+		warHasEnded = true;
 	}
 	
 	
@@ -311,7 +335,7 @@ public class SwingView extends JFrame{
 	}
 
 	public void showStatistics(long[] statisticsToArray) {
-		frmShowStats statsFrm = new frmShowStats();
+		frmShowStats statsFrm = new frmShowStats(warHasEnded);
 		statsFrm.addStats(statisticsToArray);
 		
 	}
@@ -388,7 +412,10 @@ public class SwingView extends JFrame{
 		
 	}
 
-	
-	
+	public void showEndWar() {
+		this.setVisible(false);
+		
+	}
+
 	
 }

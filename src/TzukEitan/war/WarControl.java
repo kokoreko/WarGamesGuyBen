@@ -198,13 +198,14 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 
 	@Override
 	public void warHasBeenFinished() {	
-		try {
+		/**try {
 			view.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		} **/
 		
 		view.showWarHasBeenFinished();
+		viewGUI.showEndWar();
 	}
 
 	@Override

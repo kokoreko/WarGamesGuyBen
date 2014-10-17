@@ -20,11 +20,11 @@ public class pnLauncher extends JPanel {
 
 	private String[] stat= {"Visabale","Hidden"};
 	public pnLauncher(String LauncherId,boolean isHidden) {
-		int i=1;
+		int i=0;
 		initLabelAndIcon(LauncherId);
 		setLayout(new MigLayout("", "[124px]", "[75px][75px]"));
 		add(lblLauncher, "cell 0 0,grow");
-		if(isHidden) i = 0;
+		if(isHidden) i = 1;
 		state = new JLabel("Lancher is: " + stat[i]);
 		state.setFont(Utils.PANEL_FONT);
 		jspLauncherInfo = new JScrollPane(state);
