@@ -94,13 +94,4 @@ public class Utils {
         
         return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
-
-	public static void closeApplication(JFrame parent) {
-		int result = JOptionPane.showConfirmDialog(parent,
-				"Are you sure you want to exit?", "Goodbye?",
-				JOptionPane.YES_NO_OPTION);
-		if (result == JOptionPane.YES_OPTION) {
-			System.exit(0);
-		}
-	}
 }
