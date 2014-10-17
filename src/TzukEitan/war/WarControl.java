@@ -107,7 +107,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	public void finishWarUI() {
 		WarXMLReader.stopAllThreads();
 		//warModel.finishWar();
-		
+		warDbModel.finishWar();
 		//notify the war
 		synchronized (warModel) {
 			warModel.notify();
@@ -211,7 +211,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} **/
-		
+	
 		view.showWarHasBeenFinished();
 		viewGUI.showEndWar();
 	}

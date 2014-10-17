@@ -104,4 +104,19 @@ public class WarDb {
 			e.printStackTrace();
 		}
 	}
+
+
+
+	public void finishWar() {
+		
+		String cmd = "UPDATE wars SET EndDate = '"+ LocalDateTime.now()+"' WHERE id="+warDbId;
+		try (Statement statment = connection.createStatement()){
+			
+			statment.executeUpdate(cmd);
+			closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
