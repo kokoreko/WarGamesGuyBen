@@ -27,6 +27,9 @@ public class IdGenerator {
 	public static synchronized String enemyMissileIdGenerator() {
 		return "M" + enemyMissileId++;
 	}
+	public static synchronized String enemyMissileNextId() {
+		return "M" +( enemyMissileId+ 1);
+	}
 
 	public static synchronized String defensMissileIdGenerator() {
 		return "DM" + defenseMissileId++;
