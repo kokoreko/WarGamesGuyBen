@@ -77,22 +77,17 @@ public class SwingView extends JFrame{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				
-				int result = JOptionPane.showConfirmDialog(SwingView.this,
-						"Are you sure you want to exit?", "Goodbye?",
-						JOptionPane.YES_NO_OPTION);
-				if (result == JOptionPane.YES_OPTION) {
 					endWar();
-				}
 				
 			}
 		});
-		
+		setFocusableWindowState(isFocusableWindow());
 		setVisible(true);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		allLauncherPanels = new Hashtable<String, pnLauncher>();
 		allMissilePanels = new Hashtable<String, pnMissile>();
 		allListeners = new LinkedList<WarEventUIListener>();
+		
 	}
 	 
 	private void setLayoutAndStyle() {
@@ -291,16 +286,21 @@ public class SwingView extends JFrame{
 	}
 
 	public void endWar() {
+		int result = JOptionPane.showConfirmDialog(SwingView.this,
+				"Are you sure you want to exit?", "Goodbye?",
+				JOptionPane.YES_NO_OPTION);
+		if (result == JOptionPane.YES_OPTION) {
 		for (WarEventUIListener l : allListeners)
 			l.finishWarUI();	
 		warHasEnded = true;
+		}
 	}
 	
 	
 	public void registerListeners(WarEventUIListener listener) {
 		allListeners.add(listener);
 	}
-	
+	//Create Buttons
 	private void createButtons(){
 		btnAddMissileIntercepter = new JButton("Add Munition to Intercept missile");
 		buttonsPanel.add(btnAddMissileIntercepter);
@@ -327,6 +327,8 @@ public class SwingView extends JFrame{
 		btnEndWar.setToolTipText("End the war and show statistics");
 		buttonsPanel.add(btnEndWar);
 	}
+	
+	// Show Changes to GUI Functions
 	private void removePanel(JPanel removePanel, JPanel panelList){
 		try{
 		panelList.remove(removePanel);
