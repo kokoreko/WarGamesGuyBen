@@ -24,7 +24,9 @@ public class RemoteWarClinet extends Application {
 			Font.loadFont(RemoteWarClinet.class.getResource("DS-DIGII.TTF").toExternalForm(),12);
 
 			Scene scene = new Scene(fxmlRoot);
+			
 			stage.setScene(scene);
+			stage.setResizable(false);
 			stage.show();
 			
 		

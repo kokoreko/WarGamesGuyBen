@@ -1,21 +1,14 @@
 package TzukEitan.view;
 
-import javafx.scene.layout.Border;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
-
 import java.awt.GridLayout;
-
 import javax.swing.JLabel;
-
 import java.awt.BorderLayout;
-
 import javax.swing.JButton;
-
 import TzukEitan.GUI.frmAddLauncherDestractor;
 import TzukEitan.GUI.frmDestroyLauncher;
 import TzukEitan.GUI.frmInterceptMissile;
@@ -27,20 +20,15 @@ import TzukEitan.GUI.pnMissile;
 import TzukEitan.GUI.pnMissileIntercepter;
 import TzukEitan.GUI.warMenu;
 import TzukEitan.listeners.WarEventUIListener;
-import TzukEitan.utils.Utils;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.Dimension;
-
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 /**
  * 
@@ -48,15 +36,14 @@ import javax.swing.SwingConstants;
  *
  */
 public class SwingView extends JFrame{
-	private JPanel upPanel,panLog,buttonsPanel,panCenter,panMissile,panLauncher,panMap,panMissileIntercepter,
+	private JPanel upPanel,buttonsPanel,panCenter,panMissile,panLauncher,panMap,panMissileIntercepter,
 					panLauncherDestractor,missileAllPanels,launcherAllPanels,lancherDestroyerAllPanel,missileIntercepterAllPanel,mapAllPanel;
 			
-	private JLabel mapLabel,lblLogTitle,lblLaunchers,lblMIssiles,lblMap,lblMissileIntercepter,lblLauncherDestractor;
+	private JLabel mapLabel,lblLaunchers,lblMIssiles,lblMap,lblMissileIntercepter,lblLauncherDestractor;
 	private JButton btnAddMissileIntercepter, btnLaunchMissile,btnAddLauncherIntercepter
 					,btnAddLauncher,btnInterceptLauncher,btnInterceptMissile,btnShowStatistics,btnEndWar;
 	private List<WarEventUIListener> allListeners;
-	private List<JFrame> allFrames;
-	private JTextArea textArea;
+
 	private JScrollPane spMissiles,spLauncherDestroyer,spMissileIntercepter,spLaunchers,spMap;
 	private Hashtable<String, pnLauncher> allLauncherPanels;
 	private Hashtable<String, pnMissile> allMissilePanels;
@@ -66,7 +53,7 @@ public class SwingView extends JFrame{
 	 * Constructor of to the war Main Frame
 	 */
 	public SwingView(){
-		allFrames = new LinkedList<JFrame>();
+
 		setSize(new Dimension(1210, 768));
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -97,16 +84,6 @@ public class SwingView extends JFrame{
 		upPanel.setLayout(new BorderLayout(0, 0));
 		upPanel.add(warMenuBar,BorderLayout.NORTH);
 		
-		panLog = new JPanel();
-		panLog.setBackground(Color.LIGHT_GRAY);
-		upPanel.add(panLog, BorderLayout.EAST);
-		panLog.setLayout(new BorderLayout(20, 20));
-		
-		lblLogTitle = new JLabel("War log updates");
-		panLog.add(lblLogTitle, BorderLayout.NORTH);
-		
-		textArea = new JTextArea();
-		panLog.add(textArea, BorderLayout.CENTER);
 		panCenter= new JPanel();
 		upPanel.add(panCenter, BorderLayout.CENTER);
 		panCenter.setLayout(new GridLayout(0, 5, 0, 0));
@@ -139,7 +116,6 @@ public class SwingView extends JFrame{
 		panMissile.add(lblMIssiles, BorderLayout.NORTH);
 		
 		mapAllPanel = new JPanel();
-		
 		panMap = new JPanel();
 		panMap.setLayout(new BorderLayout(0, 0));
 		lblMap = new JLabel("Israel Map");
@@ -154,8 +130,6 @@ public class SwingView extends JFrame{
 		
 		panMap.add(mapAllPanel, BorderLayout.CENTER);
 		panCenter.add(panMap);
-		
-		
 		
 		panMissileIntercepter = new JPanel();
 		panCenter.add(panMissileIntercepter);
@@ -277,7 +251,7 @@ public class SwingView extends JFrame{
 	}
 
 	protected void fireAddLauncherIntercepter() {
-		frmAddLauncherDestractor LDF = new frmAddLauncherDestractor(allListeners);
+		new frmAddLauncherDestractor(allListeners);
 	}
 
 	protected void fireShowStats() {
