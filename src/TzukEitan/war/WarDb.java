@@ -190,14 +190,18 @@ public class WarDb {
 			Connection connectionSt = DriverManager.getConnection(Constans.DB_URL, Constans.DB_USER, Constans.DB_PASWORD);
 
 
-			String cmd = "SELECT id FROM wars WHERE StartDate >= '"+start+"' AND EndDate <= '"+end+"'";
+			String cmd = "SELECT * FROM wars WHERE StartDate >= '"+start+"' AND EndDate <= '"+end+"'";
 			try (Statement statment = connectionSt.createStatement()){
 
 
 				ResultSet rs = statment.executeQuery(cmd);
 				while (rs.next()){
 					DbId = rs.getInt("id");
-					ret.append("********************* WAR #"+DbId+" *********************");
+					ret.append("********************* WAR #");
+					ret.append(DbId);
+					ret.append(" From: ");
+					ret.append(rs.getTimestamp("StartDate"));
+					ret.append(" *********************");
 					ret.append('\n');					
 					ret = getMissileHistoryByWarId(DbId,ret,connectionSt);
 					ret = getEnemyLauncherHistoryByWarId(DbId,ret,connectionSt);
