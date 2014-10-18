@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -270,10 +271,10 @@ public class pnCal extends JPanel {
     square.repaint();
     activeDay = newDay;
   }
-  public LocalDate userChoise(){
-	  LocalDate date = null;
+  public LocalDateTime userChoise(){
+	  LocalDateTime date = null;
 	  if(isDayChoosen){
-		  date = LocalDate.of(yy, mm+1, dd);
+		  date = LocalDateTime.of(yy, mm+1, dd ,23,59,59);
 	  }else{
 		  JOptionPane.showMessageDialog(this, "You have to Choose a day");
 	  }

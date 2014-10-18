@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -165,7 +167,139 @@ public class WarDb {
 
 
 
+	public void defenseHitInterceptionLauncher(String whoLaunchedMeId,
+			String enemyLauncherId) {
+		String cmd = "UPDATE enemy_launcher SET beenHit=true , hitTime='"+LocalDateTime.now()+"' , hitBy='"+whoLaunchedMeId+"'  WHERE id='"+enemyLauncherId+"' AND warId="+warDbId;
+		try (Statement statment = connection.createStatement()){
+			
+			statment.executeUpdate(cmd);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	public static String getHistoryLog(LocalDateTime start, LocalDateTime end){
+		StringBuilder ret = new StringBuilder();
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			int DbId = 0;
+			Connection connectionSt = DriverManager.getConnection(Constans.DB_URL, Constans.DB_USER, Constans.DB_PASWORD);
 
+
+			String cmd = "SELECT id FROM wars WHERE StartDate >= '"+start+"' AND EndDate <= '"+end+"'";
+			try (Statement statment = connectionSt.createStatement()){
+
+
+				ResultSet rs = statment.executeQuery(cmd);
+				while (rs.next()){
+					DbId = rs.getInt("id");
+					ret.append("********************* WAR #"+DbId+" *********************");
+					ret.append('\n');					
+					ret = getMissileHistoryByWarId(DbId,ret,connectionSt);
+					ret = getEnemyLauncherHistoryByWarId(DbId,ret,connectionSt);
+					ret = getLauncherDestructorHistoryByWarId(DbId,ret,connectionSt);
+					ret.append('\n');
+					ret.append('\n');
+					ret.append('\n');
+				}
+				
+
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e){}
+
+
+		return ret.toString();
+
+	}
+
+	private static StringBuilder getMissileHistoryByWarId(int id,StringBuilder ret, Connection connection){
+
+		String cmd = "SELECT * FROM enemy_missile WHERE warId="+id;
+		try (Statement statment = connection.createStatement()){
+			ResultSet rs = statment.executeQuery(cmd);
+			while (rs.next()){
+				ret.append("Missile: ");
+				ret.append(rs.getString("id"));
+				ret.append(" ");
+				ret.append("Launched by: ");
+				ret.append(rs.getString("whoLaunchedMeId"));
+				ret.append(" ");
+				ret.append("To : ");
+				ret.append(rs.getString("destination"));
+				ret.append(" ");
+				ret.append("with damage by: ");
+				ret.append(rs.getInt("damage"));
+
+				ret.append("Flew for : ");
+				ret.append(rs.getInt("flyTime"));
+				ret.append(" ");
+				if(rs.getBoolean("beenHit")){
+					ret.append("was intercepted in ");
+					ret.append(rs.getTimestamp("hitTime"));
+
+				} else {
+					ret.append("HIT HIS TAEGER!");
+				}
+				ret.append('\n');
+			}
+		} catch (Exception e) {
+
+		}
+		return ret;
+	}
+	private static StringBuilder getLauncherDestructorHistoryByWarId(int id,StringBuilder ret, Connection connection){
+
+		String cmd = "SELECT * FROM launcher_destructor WHERE warId="+id;
+		try (Statement statment = connection.createStatement()){
+			ResultSet rs = statment.executeQuery(cmd);
+			while (rs.next()){
+				ret.append("Destructor: ");
+				ret.append(rs.getString("id"));
+				ret.append(" ");
+				ret.append("type: ");
+				ret.append(rs.getString("type"));
+				ret.append(" ");
+				ret.append("set to destroy : ");
+				ret.append(rs.getString("toDestroyId"));
+
+				ret.append('\n');
+			}
+		} catch (Exception e) {
+
+		}
+		return ret;
+	}
+	private static StringBuilder getEnemyLauncherHistoryByWarId(int id,StringBuilder ret, Connection connection){
+
+		String cmd = "SELECT * FROM enemy_launcher WHERE warId="+id;
+		try (Statement statment = connection.createStatement()){
+			ResultSet rs = statment.executeQuery(cmd);
+			while (rs.next()){
+				ret.append("Enemy Launcher: ");
+				ret.append(rs.getString("id"));
+				ret.append(" ");
+				if(rs.getBoolean("beenHit")){
+					ret.append("was hit by : ");
+					ret.append(rs.getString("hitBy"));
+					ret.append(" ");
+					ret.append("in : ");
+					ret.append(rs.getTimestamp("HitTime"));
+				} 
+				ret.append('\n');
+			}
+		} catch (Exception e) {
+
+		}
+		return ret;
+	}
 
 
 

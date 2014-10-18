@@ -26,7 +26,7 @@ public class ServerConnection extends Thread {
 		while(!IsConnected)
 		{
 			try {
-				socket = new Socket("localhost", 7000);
+				socket = new Socket("192.168.1.11", 7000);
 				IsConnected=true;
 				socket.setSoTimeout(30000);
 				lbLine1.setText("Connected to server");

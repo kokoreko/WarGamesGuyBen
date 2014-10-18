@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javafx.scene.layout.Border;
 
@@ -38,9 +39,9 @@ public class frmSearch extends JFrame {
 		btnSearch.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				LocalDate fromDate = calLeft.userChoise();
+				LocalDateTime fromDate = calLeft.userChoise();
 				calRight.setIsDayChoosen(true);
-				LocalDate toDate = calRight.userChoise();
+				LocalDateTime toDate = calRight.userChoise();
 				if(fromDate != null && toDate != null){
 					frmDbInfo dbInfo = new frmDbInfo(fromDate,toDate);
 					frmSearch.this.setVisible(false);
