@@ -77,7 +77,14 @@ public class SwingView extends JFrame{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				Utils.closeApplication(SwingView.this);
+				
+				int result = JOptionPane.showConfirmDialog(SwingView.this,
+						"Are you sure you want to exit?", "Goodbye?",
+						JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
+					endWar();
+				}
+				
 			}
 		});
 		
@@ -283,7 +290,7 @@ public class SwingView extends JFrame{
 			l.showStatisticsUI();
 	}
 
-	private void endWar() {
+	public void endWar() {
 		for (WarEventUIListener l : allListeners)
 			l.finishWarUI();	
 		warHasEnded = true;

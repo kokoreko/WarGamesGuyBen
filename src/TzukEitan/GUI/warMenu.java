@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import TzukEitan.utils.Utils;
 import TzukEitan.view.SwingView;
@@ -24,7 +25,12 @@ public class warMenu extends JMenuBar {
 		exitMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Utils.closeApplication(mainFrame);
+				int result = JOptionPane.showConfirmDialog(mainFrame,
+						"Are you sure you want to exit?", "Goodbye?",
+						JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.YES_OPTION) {
+					mainFrame.endWar();
+				}
 			}
 		});
 		fileMenu.add(exitMenuItem);
