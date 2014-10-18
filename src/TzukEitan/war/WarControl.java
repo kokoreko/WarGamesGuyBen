@@ -11,7 +11,7 @@ import TzukEitan.view.WarXMLReader;
 
 public class WarControl implements WarEventListener, WarEventUIListener{
 	private War warModel;
-	private WarDb warDbModel;
+	private WarDb warDb;
 	private ConsoleView view;
 	private SwingView viewGUI;
 	
@@ -19,7 +19,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 		this.warModel = warModel;
 		this.view = view;
 		this.viewGUI = viewGUI;
-		this.warDbModel =warDbModel;
+		this.warDb =warDbModel;
 		
 		warModel.registerListenerts(this);
 		view.registerListeners(this);
@@ -54,6 +54,8 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	public void enemyLauncherIsVisible(String id,boolean visible) {
 		view.showLauncherIsVisible(id,visible);
 		viewGUI.showLauncherIsVisible(id, visible);
+		
+		
 	}
 	
 	@Override
@@ -75,6 +77,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	public void defenseHitInterceptionMissile(String whoLaunchedMeId, String missileId, String enemyMissileId) {
 		view.showHitInterceptionMissile(whoLaunchedMeId, missileId, enemyMissileId);
 		viewGUI.showHitInterceptionMissile(enemyMissileId);
+		warDb.defenseHitInterceptionMissile(whoLaunchedMeId,missileId,enemyMissileId);
 	}
 
 	@Override
@@ -107,7 +110,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	public void finishWarUI() {
 		WarXMLReader.stopAllThreads();
 		//warModel.finishWar();
-		warDbModel.finishWar();
+		warDb.finishWar();
 		//notify the war
 		synchronized (warModel) {
 			warModel.notify();
@@ -145,6 +148,8 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	@Override
 	public void interceptGivenLauncherUI(String destructorId, String launcherId) {
 		warModel.interceptGivenLauncher(destructorId,launcherId);
+		warDb.interceptGivenLauncher(destructorId,launcherId);
+		
 	}
 	
 	@Override
@@ -162,14 +167,14 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	@Override
 	public void addEnemyMissileUI(String launcherId, String destination, int damage, int flyTime) {
 		String id = warModel.launchEnemyMissile(launcherId, destination, damage, flyTime);
-		warDbModel.launchEnemyMissile(id,launcherId,destination,damage,flyTime);
+		warDb.launchEnemyMissile(id,launcherId,destination,damage,flyTime);
 		
 	}
 
 	@Override
 	public String addEnemyLauncherUI(String launcherId, boolean isHidden) {
 		String id = warModel.addEnemyLauncher(launcherId, isHidden);
-		warDbModel.addEnemyLauncher(id, isHidden);
+		warDb.addEnemyLauncher(id, isHidden);
 		return id;
 	}
 	
@@ -195,6 +200,7 @@ public class WarControl implements WarEventListener, WarEventUIListener{
 	@Override
 	public String addDefenseLauncherDestructorUI(String type) {
 		String id = warModel.addDefenseLauncherDestructor(type);
+		warDb.addDefenseLauncherDestructor(id,type);
 		return id;
 	}
 

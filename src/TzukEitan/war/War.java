@@ -19,6 +19,7 @@ public class War extends Thread {
 	private ArrayList<LauncherDestructor> launcherDestractorArr = new ArrayList<LauncherDestructor>();
 	private ArrayList<EnemyLauncher> enemyLauncherArr = new ArrayList<EnemyLauncher>();
 	private WarStatistics statistics;
+	
 	private String[] targetCities = { "Sderot", "Ofakim", "Beer-Sheva",
 			"Netivot", "Tel-Aviv", "Re'ut" };
 

@@ -85,7 +85,7 @@ public class WarDb {
 		String cmd = "INSERT INTO enemy_launcher (warId,id,isHidden) VALUES ('"+warDbId+"','"+launcherId+"',"+(isHidden ? true:false)+")";
 		try (Statement statment = connection.createStatement()){
 			
-			int numOfAffectedRows = statment.executeUpdate(cmd);
+			statment.executeUpdate(cmd);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,13 +98,24 @@ public class WarDb {
 				+ "								 ('"+warDbId+"','"+missileId+"','"+launcherId+"','"+destination+"','"+flyTime+"','"+damage+"')";
 		try (Statement statment = connection.createStatement()){
 			
-			int numOfAffectedRows = statment.executeUpdate(cmd);
+			statment.executeUpdate(cmd);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+	public void addDefenseLauncherDestructor(String id, String type) {
+		String cmd = "INSERT INTO launcher_destructor (warId,id,type) VALUES "
+				+ "								 ('"+warDbId+"','"+id+"','"+type+"')";
+		try (Statement statment = connection.createStatement()){
+			
+			statment.executeUpdate(cmd);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 
 	public void finishWar() {
@@ -119,4 +130,44 @@ public class WarDb {
 			e.printStackTrace();
 		}
 	}
+
+
+
+	public void interceptGivenLauncher(String destructorId, String launcherId) {
+		
+		String cmd = "UPDATE launcher_destructor SET toDestroyId = '"+ launcherId +"' WHERE id='"+destructorId+"' AND warId="+warDbId ;
+		try (Statement statment = connection.createStatement()){
+			
+			statment.executeUpdate(cmd);
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
+
+	public void defenseHitInterceptionMissile(String whoLaunchedMeId,
+			String missileId, String enemyMissileId) {
+		String cmd = "UPDATE enemy_missile SET beenHit=true , hitTime='"+LocalDateTime.now()+"'  WHERE id='"+enemyMissileId+"' AND warId="+warDbId;
+		try (Statement statment = connection.createStatement()){
+			
+			statment.executeUpdate(cmd);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
+
+
+
+
+
+
 }
