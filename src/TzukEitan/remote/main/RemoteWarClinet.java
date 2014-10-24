@@ -20,7 +20,7 @@ public class RemoteWarClinet extends Application {
 			FXMLLoader f = new FXMLLoader();
 
 			Parent fxmlRoot = (Parent) f.load(new FileInputStream(new File(
-					"bin\\TzukEitan\\remote\\main.fxml")));
+					"src\\TzukEitan\\remote\\main.fxml")));
 			Font.loadFont(RemoteWarClinet.class.getResource("DS-DIGII.TTF").toExternalForm(),12);
 
 			Scene scene = new Scene(fxmlRoot);
